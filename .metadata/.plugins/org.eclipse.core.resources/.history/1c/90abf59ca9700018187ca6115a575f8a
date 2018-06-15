@@ -1,0 +1,39 @@
+import java.awt.*;
+
+import javax.swing.JFrame;
+
+public class Test_Gui extends JFrame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	public Test_Gui() {
+		this.setSize(400, 400);
+		initializeComponents();
+		this.setVisible(true);
+	}
+	
+	private void initializeComponents() {
+
+		Canvas canvas = new Canvas();
+		canvas.setSize(400, 400);
+		canvas.setBackground(new Color(255,255,255));
+		this.add(canvas);
+
+		Graphics graphics = canvas.getGraphics();
+		
+		graphics.setColor(new Color(0,0,0));	
+		graphics.drawLine(0, 0, 400, 400);
+		canvas.setVisible(true);
+
+		
+		this.paintComponents(graphics);
+
+
+	}
+	
+	public void drawLine() {
+		
+	}
+}

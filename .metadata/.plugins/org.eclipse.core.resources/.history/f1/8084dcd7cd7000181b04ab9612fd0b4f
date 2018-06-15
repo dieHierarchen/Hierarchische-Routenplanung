@@ -1,0 +1,24 @@
+
+public class City {
+	private String name;
+	public String getCityName() {
+		return name;
+	}
+	
+	private double xCoordinate;
+	private double yCoordinate;
+	public double[] getCoordinates() {
+		double[] Coordinates = new double[2];
+		Coordinates[0] = xCoordinate;
+		Coordinates[1]= yCoordinate;
+		return Coordinates;
+	}
+	
+	public City(String name, double xCoordinate, double yCoordinate) {
+		this.name = name;
+		this.xCoordinate = xCoordinate;
+		this.yCoordinate = yCoordinate;
+	}
+	
+	
+}

@@ -1,0 +1,17 @@
+import java.awt.Container;
+
+import javax.swing.JFrame;
+
+public class Test_Gui extends JFrame{
+	public Test_Gui() {
+		this.setSize(1000, 1000);
+		initializeComponents();
+		this.setVisible(true);
+	}
+	
+	private void initializeComponents() {
+		Container pane = this.getContentPane();
+		
+		, constraints);
+	}
+}

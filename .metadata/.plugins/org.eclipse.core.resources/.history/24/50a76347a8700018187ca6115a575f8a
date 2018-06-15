@@ -1,0 +1,38 @@
+import java.awt.*;
+import java.awt.image.BufferStrategy;
+
+import javax.swing.JFrame;
+
+public class Test_Gui extends JFrame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Graphics graphics;
+	private BufferStrategy bufferStrategy;
+	
+	public Test_Gui() {
+		this.setSize(400, 400);
+		initializeComponents();
+		this.setVisible(true);
+	}
+	
+	private void initializeComponents() {
+		Container pane = this.getContentPane();
+		Canvas canvas = new Canvas();
+		canvas.setSize(400, 400);
+		canvas.setBackground(new Color(255,255,255));
+		canvas.setVisible(true);
+		pane.add(canvas);
+		
+		bufferStrategy = canvas.getBufferStrategy();
+		graphics = bufferStrategy.getDrawGraphics();
+
+	}
+	
+	public void drawLine() {
+		graphics.setColor(new Color(0,0,0));	
+		graphics.drawLine(0, 0, 400, 400);
+	}
+}

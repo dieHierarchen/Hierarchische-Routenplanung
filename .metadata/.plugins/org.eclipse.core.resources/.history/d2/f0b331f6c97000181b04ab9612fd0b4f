@@ -1,0 +1,9 @@
+import java.awt.*;
+
+public class MainClass {
+	public static void main(String[] args) {
+		JFrame mainFrame = new JFrame();
+		DrawCanvas canvas = new DrawCanvas();
+		canvas.setPreferredSize(new Dimension());
+	}
+}

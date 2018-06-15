@@ -1,0 +1,23 @@
+import java.awt.Canvas;
+import java.awt.Container;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+
+import javax.swing.JFrame;
+
+public class Test_Gui extends JFrame{
+	public Test_Gui() {
+		this.setSize(1000, 1000);
+		initializeComponents();
+		this.setVisible(true);
+	}
+	
+	private void initializeComponents() {
+		Container pane = this.getContentPane();
+		Canvas canvas = new Canvas();
+		pane.add(canvas);
+		Graphics graphics = canvas.getGraphics();
+			
+		, constraints);
+	}
+}

@@ -1,0 +1,23 @@
+import java.awt.*;
+
+import javax.swing.JFrame;
+
+public class Test_Gui extends JFrame{
+	public Test_Gui() {
+		this.setSize(1000, 1000);
+		initializeComponents();
+		this.setVisible(true);
+	}
+	
+	private void initializeComponents() {
+		Container pane = this.getContentPane();
+		Canvas canvas = new Canvas();
+		pane.add(canvas);
+		
+		Graphics graphics = canvas.getGraphics();
+		graphics.setColor(new Color(255,255,255));
+		
+			
+		, constraints);
+	}
+}

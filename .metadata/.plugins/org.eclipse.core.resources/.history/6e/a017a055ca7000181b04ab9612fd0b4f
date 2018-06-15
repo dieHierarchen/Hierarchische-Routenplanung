@@ -1,0 +1,23 @@
+import java.awt.*;
+import java.awt.geom.*;
+import javax.swing.JPanel;
+
+public class DrawCanvas extends JPanel {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Override
+	public void paintComponent(Graphics g) {
+		Graphics2D graphics = (Graphics2D) g;
+		super.paintComponent(g);
+		
+		graphics.setPaint(new Color(255,0,255));
+		graphics.draw(new Ellipse2D.Double(-100, -100, 5, 5));
+		graphics.draw(new Ellipse2D.Double(-300, -300, 5, 5));
+		graphics.draw(new Line2D.Double(-100,-100,-300,-300));
+	}
+
+}
