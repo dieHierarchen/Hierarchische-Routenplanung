@@ -1,0 +1,24 @@
+package UnitTests;
+
+import org.junit.*;
+
+public class UnitTestDijkstra {
+	
+	private int[][] testGraph;
+	
+	@Before
+	public void setpUp() {
+		//setting up a testing matrix (incidence list of a graph)
+		testGraph = new int[9][9];
+		for (int i = 0; i < testGraph.length; i++) {
+			for (int j = k; k < testGraph.length; j++) {
+				
+			}
+		}
+	}
+	
+	@Test
+	public void run() {
+		
+	}
+}

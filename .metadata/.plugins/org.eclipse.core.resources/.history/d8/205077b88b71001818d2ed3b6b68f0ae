@@ -1,0 +1,15 @@
+package UnitTests;
+
+import org.junit.*;
+
+public class UnitTestDijkstra {
+	@Before
+	public void setpUp() {
+		
+	}
+	
+	@Test
+	public void run() {
+		
+	}
+}
