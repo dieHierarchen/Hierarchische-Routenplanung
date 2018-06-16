@@ -1,10 +1,17 @@
+/**
+ * 
+ * @author Robin Schneider
+ * @version 0.5
+ *
+ */
+
+
 package Logic;
 
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.TreeMap;
 
+@
 public class DijkstraAlgorithm {
 	
 	private int startingNode;
@@ -17,6 +24,8 @@ public class DijkstraAlgorithm {
 	
 	private ArrayList<Integer> result;
 	private int minDistanceResult = 0;
+	
+	private boolean founddExactPathAlready;
 	
 	public ArrayList<Integer>getResultList() {
 		return this.result;
@@ -35,6 +44,7 @@ public class DijkstraAlgorithm {
 	private void initializeDijkstra() {
 		distance = new TreeMap<>();
 		result = new ArrayList<>();
+		founddExactPathAlready = false;
 		
 		resultGraph = new int[graph.length][graph.length];
 		for (int i = 0; i < resultGraph.length; i++) {
@@ -63,17 +73,6 @@ public class DijkstraAlgorithm {
 			int[] minEdge = minOpenEdge();
 			resultGraph[minEdge[0]][minEdge[1]] = 1;
 		}while (!distance.containsKey(finalNode));
-		
-//		//Test
-//		System.out.println(resultGraph.length);
-//		for (int i = 0; i < resultGraph.length; i++) {
-//			for (int k = 1; k < resultGraph.length; k++) {
-//			if (resultGraph[i][k] == 1) {
-//				System.out.println("Result Edge: (" + i + ";" + k + ")");
-//				}
-//			}
-//		}
-//		//Test ending
 	}
 	
 	private int[] minOpenEdge() {
@@ -100,33 +99,34 @@ public class DijkstraAlgorithm {
 		return minEdge;
 	}
 	
-	private void recursivPathFinder(int node, int finalNode, ArrayList<Integer> results) {
-		System.out.println("Analyisng Node:" + node);				//Test
-		if (resultGraph[node][finalNode] == 1) {
-			System.out.println("Done");												//Test
-			results.add(finalNode);
-			this.result = results;
-			
-			//Test:
-		}
-		else
+	@SuppressWarnings("unchecked")
+	private void recursivPathFinder(int node, int finalNode, ArrayList<Integer> resultTemp) {
+		if (!founddExactPathAlready)
 		{
-			for (int i = 0; i < resultGraph.length; i++) {
-				if (resultGraph[node][i] == 1) {
-					System.out.println("Neighbouring Edge: (" + node + ";" + i);	//Test
-					System.out.println("Recursive Call for Node " + i);		//Test
-					ArrayList<Integer> CopyOfResult = results;
-					results.add(node);
-					recursivPathFinder(i, finalNode, CopyOfResult);
+			resultTemp.add(node);
+
+			if (resultGraph[node][finalNode] == 1) {
+				resultTemp.add(finalNode);
+				this.result = resultTemp;
+				founddExactPathAlready = true;
+			}
+			else
+			{
+				for (int i = 0; i < resultGraph.length; i++) {
+					if (resultGraph[node][i] == 1) {
+						ArrayList<Integer> CopyOfResult;
+						try {
+							CopyOfResult = (ArrayList<Integer>) resultTemp.clone();
+						}
+						catch (ClassCastException e) {
+							throw new ClassCastException("ResultTemp has to be an ArrayList<Integer>");
+						}
+						recursivPathFinder(i, finalNode, CopyOfResult);
+					}
 				}
-				//Test
-				else {
-					System.out.println("Reached an end point at Node " + i);		//Test
-				}
-				//test ends here
-					
 			}
 		}
 	}
+		
 	
 }

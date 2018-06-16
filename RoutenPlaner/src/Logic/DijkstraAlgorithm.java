@@ -1,7 +1,16 @@
+/**
+ * 
+ * @author Robin Schneider
+ * @version 0.5
+ *
+ */
+
+
 package Logic;
 
 import java.util.ArrayList;
 import java.util.TreeMap;
+
 
 public class DijkstraAlgorithm {
 	
