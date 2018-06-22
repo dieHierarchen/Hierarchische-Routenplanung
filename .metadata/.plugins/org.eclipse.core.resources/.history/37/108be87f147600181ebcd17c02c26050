@@ -6,6 +6,7 @@ import javax.swing.*;
 import Logic.DijkstraAlgorithm;
 
 public class MainClass {
+<<<<<<< HEAD
 	public static void main(String[] args) {
 		JFrame mainFrame = new JFrame();
 		mainFrame.setTitle("Hierarchische RoutenPlanung");
@@ -66,6 +67,10 @@ public class MainClass {
 		for (int t : resultTest) {
 			System.out.print(t + "; ");
 		}
+=======
+	public static void main (String[] Args) {
+		System.out.println("Hello Hierarchen!");
+		System.out.println("sauf nei");
+>>>>>>> 98f2197136e7de9f59f9a6c2704051639e0ae3a7
 	}
 }
-
