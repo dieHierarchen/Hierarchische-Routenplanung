@@ -1,7 +1,0 @@
-import javax.swing.JFrame;
-
-public class Test_Gui extends JFrame{
-	public Test_Gui() {
-		
-	}
-}

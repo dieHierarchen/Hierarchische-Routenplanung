@@ -1,0 +1,13 @@
+package GUI;
+
+public class Presenter {
+
+	public void startApplication() {
+		LoadingAppWindow loadingScreen = new LoadingAppWindow();
+		
+		//Lade XML Parser und generiere Graph aller Autobahnen
+		
+		
+		//
+	}
+}

@@ -1,0 +1,21 @@
+package GUI;
+
+import javax.swing.*;
+
+public class LoadingAppWindow extends JFrame {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public LoadingAppWindow() {
+		initializeWindow();
+	}
+	
+	private void initializeWindow() {
+		this.setTitle("Hierarchischer Routenplaner");
+		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+	}
+	
+}

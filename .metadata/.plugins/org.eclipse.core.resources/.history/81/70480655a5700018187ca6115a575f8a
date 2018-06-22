@@ -1,8 +1,0 @@
-import java.util.Dictionary;
-import java.util.LinkedList;
-
-public class Graph {
-	private Dictionary<String, LinkedList<City>> data;
-	
-	
-}

@@ -1,0 +1,53 @@
+package GUI;
+
+import java.awt.BorderLayout;
+import java.awt.Color;import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.LayoutManager;
+
+import javax.swing.*;
+
+public class LoadingAppWindow extends JFrame {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public LoadingAppWindow() {
+		initializeWindow();
+		initializeComponents();
+	}
+	
+	private void initializeWindow() {
+		this.setTitle("Hierarchischer Routenplaner");
+		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		this.setSize(300, 300);
+	}
+	
+	private void initializeComponents() {
+		Container pane = this.getContentPane();
+		pane.setLayout(new BorderLayout());
+		
+		//South:
+		JPanel South = new JPanel();
+		South.setLayout(new FlowLayout());
+		pane.add(BorderLayout.SOUTH, South);
+		
+		South.add(new )
+		JProgressBar progressBar = new JProgressBar();
+		progressBar.setForeground(Color.blue);
+		progressBar.setIndeterminate(true);
+		
+		
+		South.add(progressBar);
+		
+		
+				
+	}
+	
+}
