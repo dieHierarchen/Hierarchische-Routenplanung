@@ -1,6 +1,8 @@
 package GUI;
 
 import java.awt.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 public class MainWindow extends JFrame{
@@ -37,15 +39,14 @@ public class MainWindow extends JFrame{
 		North.setLayout(new FlowLayout());
 		pane.add(BorderLayout.NORTH, North);
 		
-		JComboBox<String> cbStartPoint = new JComboBox<String>();
+		JComboBox<ArrayList<String>> cbStartPoint = new JComboBox<ArrayList<String>>();
 		//Test:
-		cbStartPoint.addItem("Hallo");
-		cbStartPoint.addItem("2");
-		cbStartPoint.addItem("3");
-		//
+		ArrayList<String> TestList = new ArrayList<>();
+		TestList.add("Hallo");
+		TestList.add("2");
 		North.add(cbStartPoint);
 		
-		JComboBox<String> cbDestination = new JComboBox<String>();
+		JComboBox<ArrayList<String>> cbStartPoint = new JComboBox<ArrayList<String>>();
 		North.add(cbDestination);
 		
 	}

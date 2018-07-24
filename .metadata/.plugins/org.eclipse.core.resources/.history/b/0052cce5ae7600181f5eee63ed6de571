@@ -11,6 +11,6 @@ public class Modell extends Observable{
 		this.minDistance = minDistance;
 		this.resultListNodes = resultNodes;
 		setChanged();
-		//notifyObservers(arg); 						//EventArgs Klasse schreiben
+		notifyObservers(arg); 						//EventArgs Klasse schreiben
 	}
 }

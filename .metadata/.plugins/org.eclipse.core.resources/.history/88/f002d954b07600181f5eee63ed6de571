@@ -45,7 +45,7 @@ public class MainWindow extends JFrame{
 		//
 		North.add(cbStartPoint);
 		
-		JComboBox<String> cbDestination = new JComboBox<String>();
+		JComboBoxy<String> cbDestination = new JComboBox<String>();
 		North.add(cbDestination);
 		
 	}

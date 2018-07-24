@@ -38,11 +38,7 @@ public class MainWindow extends JFrame{
 		pane.add(BorderLayout.NORTH, North);
 		
 		JComboBox<String> cbStartPoint = new JComboBox<String>();
-		//Test:
 		cbStartPoint.addItem("Hallo");
-		cbStartPoint.addItem("2");
-		cbStartPoint.addItem("3");
-		//
 		North.add(cbStartPoint);
 		
 		JComboBox<String> cbDestination = new JComboBox<String>();

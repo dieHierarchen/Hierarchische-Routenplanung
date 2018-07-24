@@ -16,7 +16,6 @@ public class MainWindow extends JFrame{
 	}
 	
 	public MainWindow() {
-		imageFrame = new PictureFrame("C:\\Users\\User\\Downloads\\deutschlandkarte.png");
 		initializeWindow();
 		initializeComponents();
 	}
@@ -35,18 +34,6 @@ public class MainWindow extends JFrame{
 		
 		JPanel North = new JPanel();
 		North.setLayout(new FlowLayout());
-		pane.add(BorderLayout.NORTH, North);
-		
-		JComboBox<String> cbStartPoint = new JComboBox<String>();
-		//Test:
-		cbStartPoint.addItem("Hallo");
-		cbStartPoint.addItem("2");
-		cbStartPoint.addItem("3");
-		//
-		North.add(cbStartPoint);
-		
-		JComboBox<String> cbDestination = new JComboBox<String>();
-		North.add(cbDestination);
 		
 	}
 
