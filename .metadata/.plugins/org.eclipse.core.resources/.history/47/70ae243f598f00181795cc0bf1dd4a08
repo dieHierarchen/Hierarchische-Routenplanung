@@ -1,0 +1,22 @@
+
+public class GraphTemp implements Graph{
+	private boolean print = false;
+	public GraphTemp() {
+		
+	}
+	
+	@Override
+	public void addNode(String name, int idx, float lon, float lat) {
+		if(print) {
+			System.out.println("Name: " + name + " LocationCode: " + idx + " lon: " + lon + " lat: " + lat);
+		}
+	}
+
+	@Override
+	public void addEdge(int startIdx, int endIdx) {
+		if(print) {
+			System.out.println("start: " + startIdx + " end: " + endIdx);
+		}
+	}
+
+}

@@ -1,0 +1,32 @@
+import org.xml.sax.Attributes;
+import org.xml.sax.helpers.DefaultHandler;
+
+
+public class MainClass extends DefaultHandler{
+
+	public static void main(String[] args){
+		String path = "D:/Studium/SoSe18/Prüfung/Programmieren/germany-latest.osm/germany-latest.osm";
+		//path = "D:/Studium/SoSe18/Prüfung/Programmieren/germany-latest.osm/test.osm";
+	}
+	
+	public void startDocument() {
+		
+	}
+	
+	public void endDocument() {
+		
+	}
+	
+	public void startElement(String nameSpaceURI, String localName, String qName, Attributes atts) {
+		
+	}
+	
+	public void endElements(String nameSpaceURI, String localName, String qName) {
+		
+	}
+	
+	public void characters(char[] ch, int start, int length) {
+		
+	}
+
+}

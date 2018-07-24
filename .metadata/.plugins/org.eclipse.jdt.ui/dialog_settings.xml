@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
+<<<<<<< HEAD
 	<item value="false" key="TypeHierarchyViewPart.qualifiednames"/>
 	<item value="3" key="TypeHierarchyViewPart.orientation"/>
 	<item value="false" key="TypeHierarchyViewPart.linkeditors"/>
@@ -11,6 +12,9 @@
 		<item value="1" key="updateSimilarElementsMatchStrategy"/>
 		<item value="false" key="updateTextualMatches"/>
 	</section>
+=======
+	<item value="C:\Users\olive\Downloads\jdom-2.0.6" key="org.eclipse.jdt.ui.lastextjar"/>
+>>>>>>> db8ee89a6793c7f4a0ee1598dfd715438df210d2
 	<section name="org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart">
 		<item value="2" key="layout"/>
 		<item value="true" key="group_libraries"/>
@@ -49,11 +53,16 @@
 	</section>
 	<section name="quick_assist_proposal_size">
 	</section>
+<<<<<<< HEAD
 	<section name="NewPackageWizardPage">
 		<item value="false" key="create_package_info_java"/>
 	</section>
 	<section name="BuildPathsPropertyPage">
 		<item value="3" key="pageIndex"/>
+=======
+	<section name="BuildPathsPropertyPage">
+		<item value="2" key="pageIndex"/>
+>>>>>>> db8ee89a6793c7f4a0ee1598dfd715438df210d2
 	</section>
 	<section name="completion_proposal_size">
 	</section>

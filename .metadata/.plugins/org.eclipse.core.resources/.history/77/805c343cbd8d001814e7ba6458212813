@@ -1,0 +1,26 @@
+import org.xml.sax.Attributes;
+import org.xml.sax.helpers.DefaultHandler;
+
+public class Handler extends DefaultHandler {
+	
+	
+	public void startDocument() {
+		
+	}
+	
+	public void endDocument() {
+		
+	}
+	
+	public void startElement(String nameSpaceURI, String localName, String qName, Attributes atts) {
+		
+	}
+	
+	public void endElement(String namespaceUI, String localName, String qName) {
+		
+	}
+	
+	public void characters(char[] ch, int start, int length) {
+		
+	}
+}

@@ -1,0 +1,55 @@
+import java.io.File;
+import java.io.IOException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
+
+public class XmlParser {
+	private Graph graph;
+	private XmlReadyCallback readyCallback;
+	
+	public XmlParser(Graph graph, XmlReadyCallback readyCallback) {
+		this.graph = graph;
+		this.readyCallback = readyCallback;
+	}
+	
+	public void startParsing() {
+		String path = "D:/Studium/SoSe18/Prüfung/Programmieren/germany-latest.osm/optimizedOnlyMotorways.osm";
+		
+		DefaultHandler handler = new XmlNodeParser(graph);
+		SAXParserFactory factory = SAXParserFactory.newInstance();
+		try {
+			SAXParser parser = factory.newSAXParser();
+			parser.parse(new File(path), handler);
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		handler = new XmlEdgeParser(graph);
+		factory = SAXParserFactory.newInstance();
+		try {
+			SAXParser parser = factory.newSAXParser();
+			parser.parse(new File(path), handler);
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("terminated");
+	}
+}

@@ -1,0 +1,16 @@
+
+public class OliParstGernXML {
+	public void parse(String path) {
+		
+	}
+	
+	public void fillGraph(Graph graph) {
+		
+	}
+	
+	public class Graph{
+		
+	}
+}
+
+

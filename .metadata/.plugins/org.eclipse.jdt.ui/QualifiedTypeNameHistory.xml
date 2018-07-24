@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
+<<<<<<< HEAD
 <fullyQualifiedTypeName name="java.util.LinkedList"/>
 <fullyQualifiedTypeName name="java.awt.Graphics"/>
 <fullyQualifiedTypeName name="java.awt.Canvas"/>
@@ -53,4 +54,12 @@
 <fullyQualifiedTypeName name="javax.swing.JComboBox"/>
 <fullyQualifiedTypeName name="GUI.PictureFrame"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
+=======
+<fullyQualifiedTypeName name="org.jdom2.input.SAXBuilder"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="java.io.IOException"/>
+<fullyQualifiedTypeName name="java.io.BufferedReader"/>
+<fullyQualifiedTypeName name="java.io.FileReader"/>
+<fullyQualifiedTypeName name="org.xml.sax.helpers.AttributesImpl"/>
+>>>>>>> db8ee89a6793c7f4a0ee1598dfd715438df210d2
 </qualifiedTypeNameHistroy>

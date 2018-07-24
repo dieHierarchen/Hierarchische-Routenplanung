@@ -1,0 +1,14 @@
+
+public class ReadyCallbackTemp implements XmlReadyCallback {
+
+	public ReadyCallbackTemp() {
+		
+	}
+	
+	@Override
+	public void readingXmlDone() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

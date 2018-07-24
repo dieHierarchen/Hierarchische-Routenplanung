@@ -1,0 +1,62 @@
+import java.io.File;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+public class OptimizedXMLCreator {
+	private Element root;
+	private Document document;
+	
+	public OptimizedXMLCreator() {
+		DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
+		try {
+			DocumentBuilder documentBuilder = builderFactory.newDocumentBuilder();
+			document = documentBuilder.newDocument();
+			root = document.createElement("osm");
+			document.appendChild(root);
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void add(Element element) {
+		root.appendChild(element);
+	}
+	
+	public Element getElement(String name) {
+		return document.createElement(name);
+	}
+	
+	public void end() {
+		TransformerFactory transformerFact = TransformerFactory.newInstance();
+		try {
+			Transformer transformer = transformerFact.newTransformer();
+			transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			DOMSource source = new DOMSource(document);
+			
+			StreamResult streamResult = new StreamResult(new File("D:/Studium/SoSe18/Prüfung/Programmieren/germany-latest.osm/optimized.osm"));
+			transformer.transform(source, streamResult);
+		} catch (TransformerConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TransformerException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+}

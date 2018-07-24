@@ -6,6 +6,7 @@ INDEX VERSION 1.130+E:\Git\Repositories\Studium\Hierarchische Routenplanung\.met
 4266428024.index
 1327924208.index
 2451833951.index
+<<<<<<< HEAD
 2967386815.index
 638561998.index
 3188099249.index
@@ -18,6 +19,10 @@ INDEX VERSION 1.130+E:\Git\Repositories\Studium\Hierarchische Routenplanung\.met
 2936170451.index
 3938969020.index
 2825787128.index
+=======
+2672315831.index
+3616623636.index
+>>>>>>> db8ee89a6793c7f4a0ee1598dfd715438df210d2
 3075621779.index
 1968702243.index
 3139704034.index

@@ -1,0 +1,56 @@
+import org.w3c.dom.Element;
+import org.xml.sax.Attributes;
+import org.xml.sax.helpers.DefaultHandler;
+
+public class Handler extends DefaultHandler {
+	OptimizedXMLCreator xmlCreator = new OptimizedXMLCreator();
+	Element element;
+	boolean save = false;
+	
+	public void startDocument() {
+		element = xmlCreator.getElement(null);
+	}
+	
+	public void endDocument() {
+		xmlCreator.end();
+	}
+	
+	public void startElement(String nameSpaceURI, String localName, String qName, Attributes atts) {
+		if (qName == "node") {
+			Element el = xmlCreator.getElement(qName);
+			save = false;
+			
+			int length = atts.getLength();
+			if (length > 0) {
+				for (int i = 0; i < length; i++) {
+					el.setAttribute(atts.getQName(i), atts.getValue(i));
+				}
+			}
+			
+			element = el;
+		} else {
+			Element el = xmlCreator.getElement(qName);
+			
+			save = true;
+			
+			int length = atts.getLength();
+			if (length > 0) {
+				for (int i = 0; i < length; i++) {
+					el.setAttribute(atts.getQName(i), atts.getValue(i));
+				}
+			}
+			
+			element.appendChild(el);
+		}
+	}
+	
+	public void endElement(String namespaceUI, String localName, String qName) {
+		if(save) {
+			xmlCreator.add(element);
+		}
+	}
+	
+	public void characters(char[] ch, int start, int length) {
+		
+	}
+}
