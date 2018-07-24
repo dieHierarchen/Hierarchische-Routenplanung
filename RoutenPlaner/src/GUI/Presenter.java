@@ -3,26 +3,58 @@ package GUI;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.xml.bind.TypeConstraintException;
+
 public class Presenter implements Observer{
+	
+	private Modell modell;
+	private LoadingScreenWorker loadingWorker;
+	private MainWindow mainWindow;
+	private LoadingAppWindow loadingScreen;
+	
+	public Presenter() {
+		modell = new Modell();
+		modell.addObserver(this);
+		
+		mainWindow = new MainWindow();
+		loadingScreen = new LoadingAppWindow();
+		loadingWorker = new LoadingScreenWorker(modell);
+	}
 
 	public void startApplication() throws InterruptedException {
-		//Lade XML Parser und generiere Graph aller Autobahnen mit Hilfe eines BackgroundWorkers
 		//Wenn Work startet öffne LoadingScreen
-		LoadingAppWindow loadingScreen = new LoadingAppWindow();
-		loadingScreen.setVisible(true);		
-		
-		//Sobald XML geparst ist, schließe LadeScreen und öffne Hauptfenster
-		Thread.sleep(5000);
-		loadingScreen.setVisible(false);
-		//
-		MainWindow mainWindow = new MainWindow();
-		mainWindow.setVisible(true);
-		
+		loadingScreen.setVisible(true);
+		loadingWorker.execute();
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		//Draw Graph into MainWindow		
+		try {
+			
+			if (!(arg instanceof Integer)) {
+				throw new TypeConstraintException("arg has to be a Integer 1 <= arg <= 2");
+			}
+			
+			int eventHandle = (Integer) arg;
+			
+			if (eventHandle == 1) {
+				startMainApplication();
+			}
+			if (eventHandle == 2) {
+				DrawResultMainWindow();
+			}
+		}
+		catch (Exception e) {
+			
+		}
+	}
+	
+	private void startMainApplication() {
+		loadingScreen.setVisible(false);
+		mainWindow.setVisible(true);
+	}
+	
+	private void DrawResultMainWindow() {
+		//Zeichne result in MainWindow PictureFrame
 	}
 }
