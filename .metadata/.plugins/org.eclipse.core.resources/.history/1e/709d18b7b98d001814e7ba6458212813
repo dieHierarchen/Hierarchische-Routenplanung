@@ -1,0 +1,30 @@
+import java.io.IOException;
+
+import org.xml.sax.Attributes;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.DefaultHandler;
+import org.xml.sax.helpers.XMLReaderFactory;
+
+
+public class MainClass{
+
+	public static void main(String[] args){
+		String path = "D:/Studium/SoSe18/Prüfung/Programmieren/germany-latest.osm/germany-latest.osm";
+		//path = "D:/Studium/SoSe18/Prüfung/Programmieren/germany-latest.osm/test.osm";
+		
+		XMLReader reader;
+		try {
+			reader = XMLReaderFactory.createXMLReader();
+			reader.parse(new InputSource(path));
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("terminated");
+	}
+
+}

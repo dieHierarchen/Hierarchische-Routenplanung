@@ -1,0 +1,42 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class GraphTemp implements Graph{
+	private boolean print = false;
+	private ArrayList<Integer> locations = new ArrayList<Integer>();
+	private int waysToNothing = 0;
+	
+	public GraphTemp() {
+		
+	}
+	
+	@Override
+	public void addNode(String name, int idx, float lon, float lat) {
+		if(print) {
+			System.out.println("Name: " + name + " LocationCode: " + idx + " lon: " + lon + " lat: " + lat);
+		}
+		for(Integer location:locations) {
+			if(location.intValue() == idx) {
+				return;
+			}
+		}
+		
+		locations.add(new Integer(idx));
+	}
+
+	@Override
+	public void addEdge(int startIdx, int endIdx) {
+		if(print) {
+			System.out.println("start: " + startIdx + " end: " + endIdx);
+		}
+		
+		for(Integer location:locations) {
+			if(location.intValue() == endIdx) {
+				return;
+			}
+		}
+		waysToNothing++;
+		System.out.println("Ways to nowhere: " + waysToNothing + " of " + locations.size() + " ways");
+	}
+
+}

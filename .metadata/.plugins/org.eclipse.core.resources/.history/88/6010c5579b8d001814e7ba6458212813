@@ -1,0 +1,48 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import org.jdom2.Attribute;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
+
+
+public class MainClass {
+
+	public static void main(String[] args) {
+		String path = "D:/Studium/SoSe18/Prüfung/Programmieren/germany-latest.osm/germany-latest.osm";
+		path = "D:/Studium/SoSe18/Prüfung/Programmieren/germany-latest.osm/test.osm";
+		try {
+			BufferedReader inputfile = new BufferedReader(new FileReader(path));
+			SAXBuilder saxBuilder = new SAXBuilder();
+			Document document = saxBuilder.build(inputfile);
+			Element root = document.getRootElement();
+			RemoveDeadNodes(document,root);
+			saxBuilder.
+		} catch(JDOMException e) {
+			e.printStackTrace();
+		} catch(IOException ioe) {
+			ioe.printStackTrace();
+		}
+   }
+	
+	private static void RemoveDeadNodes(Document document, Element root) {
+		Element removeElement = null;
+		for(Element child:root.getChildren()) {
+			System.out.println(child.getName());
+			if(child.getChildren().size() == 0) {
+				removeElement = child;
+				break;
+			}
+		}
+		if(removeElement != null) {
+			root.removeChild(removeElement.getName());
+			RemoveDeadNodes(document,root);
+		}
+	}
+}

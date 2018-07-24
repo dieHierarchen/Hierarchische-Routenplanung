@@ -1,0 +1,79 @@
+import java.io.File;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.sax.SAXTransformerFactory;
+import javax.xml.transform.sax.TransformerHandler;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.AttributesImpl;
+
+public class OptimizedXMLCreator {
+	private Element root;
+	private Document document;
+	private TransformerHandler hd;
+	private AttributesImpl atts = new AttributesImpl();
+	
+	public OptimizedXMLCreator() {
+		//StreamResult streamResult = new StreamResult("D:/Studium/SoSe18/Prüfung/Programmieren/germany-latest.osm/optimized.osm");
+		StreamResult streamResult = new StreamResult("D:/Studium/SoSe18/Prüfung/Programmieren/germany-latest.osm/optimizedOnlyHighways.osm");
+		
+		SAXTransformerFactory tf = (SAXTransformerFactory) SAXTransformerFactory.newInstance();
+		try {
+			hd = tf.newTransformerHandler();
+			Transformer serializer = hd.getTransformer();
+			serializer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+			//serializer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "objects.dtd");
+			serializer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+			serializer.setOutputProperty(OutputKeys.INDENT, "yes");
+			
+			hd.setResult(streamResult);
+			hd.startDocument();
+		} catch (TransformerConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	public void add(String qName, AttributesImpl attributes) {
+		try {
+			hd.startElement("", "", qName, attributes);
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void endEl(String qName) {
+		try {
+			hd.endElement("", "", qName);
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void end() {
+		try {
+			hd.endElement("", "", "osm");
+			hd.endDocument();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}

@@ -1,0 +1,146 @@
+import java.awt.List;
+import java.util.ArrayList;
+
+import org.w3c.dom.Element;
+import org.xml.sax.Attributes;
+import org.xml.sax.helpers.AttributesImpl;
+import org.xml.sax.helpers.DefaultHandler;
+
+public class Handler extends DefaultHandler {
+	OptimizedXMLCreator xmlCreator = new OptimizedXMLCreator();
+	Element element;
+	boolean save = false;
+	private AttributesImpl attributes = new AttributesImpl();
+	private ElementContent elements;
+	
+	int checkedTags = 0;
+	int hundredThousandCounter = 0;
+	
+	public void endDocument() {
+		if(save) {
+			printElement(elements);
+		}
+		xmlCreator.end();
+	}
+	
+	private class ElementContent{
+		private String qName;
+		private AttributesImpl attributes;
+		private ArrayList<ElementContent> children = new ArrayList<ElementContent>();
+		
+		public ElementContent(String qName, AttributesImpl attributes) {
+			this.qName = qName;
+			this.attributes = attributes;
+		}
+		
+		public void addChild(ElementContent element) {
+			children.add(element);
+		}
+	}
+	
+	public void startElement(String nameSpaceURI, String localName, String qName, Attributes atts) {
+		if (qName == "node") {
+			if(save) {
+				printElement(elements);
+			}
+			
+			save = false;
+			
+			attributes.clear();
+			int length = atts.getLength();
+			if (length > 0) {
+				for (int i = 0; i < length; i++) {
+					attributes.addAttribute("", "", atts.getQName(i), "", atts.getValue(i));
+				}
+			}
+			elements = new ElementContent(qName, attributes);
+		} else {
+			attributes.clear();
+			int length = atts.getLength();
+			if (length > 0) {
+				for (int i = 0; i < length; i++) {
+					attributes.addAttribute("", "", atts.getQName(i), "", atts.getValue(i));
+					
+					if(atts.getValue(i) == "highway ") {
+						save = true;
+					} else {
+						//System.out.println(atts.getValue(i));
+					}
+				}
+			}
+			
+			if(elements != null) {
+				elements.addChild(new ElementContent(qName, attributes));
+			}else {
+				xmlCreator.add(qName, attributes);
+				save = false;
+			}
+		}
+		
+		checkedTags++;
+		
+		if(checkedTags >= 1000000) {
+			checkedTags = 0;
+			hundredThousandCounter++;
+			System.out.println("One Million Lines Checked: " + hundredThousandCounter + " times!");
+		}
+	}
+	
+	/*public void startElement(String nameSpaceURI, String localName, String qName, Attributes atts) {
+		if(qName == "node") {
+			if(save) {
+				printElement(elements);
+			}
+			save = false;
+			
+			attributes.clear();
+			int length = atts.getLength();
+			if (length > 0) {
+				for (int i = 0; i < length; i++) {
+					attributes.addAttribute("", "", atts.getQName(i), "", atts.getValue(i));
+				}
+			}
+			elements = new ElementContent(qName, attributes);
+		} else {
+			save = true;
+			
+			attributes.clear();
+			int length = atts.getLength();
+			if (length > 0) {
+				for (int i = 0; i < length; i++) {
+					attributes.addAttribute("", "", atts.getQName(i), "", atts.getValue(i));
+				}
+			}
+			if(elements != null) {
+				elements.addChild(new ElementContent(qName,attributes));
+			} else {
+				xmlCreator.add(qName, attributes);
+				save = false;
+			}
+		}
+		
+		checkedTags++;
+		if(checkedTags >= 1000000) {
+			checkedTags = 0;
+			hundredThousandCounter++;
+			System.out.println("One Hundred Thousand Lines Checked: " + hundredThousandCounter + " times!");
+		}
+	}*/
+	
+	private void printElement(ElementContent el) {
+		System.out.println("printed");
+		xmlCreator.add(el.qName, el.attributes);
+		for(ElementContent child:el.children) {
+			printElement(child);
+		}
+		xmlCreator.endEl(el.qName);
+	}
+	
+	public void endElement(String namespaceUI, String localName, String qName) {
+
+	}
+	
+	public void characters(char[] ch, int start, int length) {
+		
+	}
+}
