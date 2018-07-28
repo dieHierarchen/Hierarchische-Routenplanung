@@ -1,0 +1,73 @@
+package GUI;
+
+import java.util.Observable;
+import java.util.Observer;
+
+import javax.xml.bind.TypeConstraintException;
+
+public class Presenter implements Observer{
+	
+	private Modell modell;
+	private LoadingScreenWorker loadingWorker;
+	private MainWindow mainWindow;
+	private LoadingAppWindow loadingScreen;
+	
+	public Presenter() {
+		modell = new Modell();
+		modell.addObserver(this);
+		
+		mainWindow = new MainWindow();
+		loadingScreen = new LoadingAppWindow();
+		loadingWorker = new LoadingScreenWorker(modell);
+	}
+
+	public void startApplication() throws InterruptedException {
+		//Wenn Work startet öffne LoadingScreen
+		loadingScreen.setVisible(true);
+		loadingWorker.execute();
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		try {
+			
+			if (!(arg instanceof Integer)) {
+				throw new TypeConstraintException("arg has to be a Integer 1 <= arg <= 2");
+			}
+			
+			int eventHandle = (Integer) arg;
+			
+			if (eventHandle == 1) {
+				startMainApplication();
+			}
+			if (eventHandle == 2) {
+				mainWindow.stopProgressBar();
+				DrawResultMainWindow();
+			}
+		}
+		catch (Exception e) {
+			
+		}
+	}
+	
+	private void startMainApplication() {
+		loadingScreen.setVisible(false);	
+		mainWindow.setComboBoxes(modell.getAllNames(), modell.getAlgorithms());
+		mainWindow.setVisible(true);
+	}
+	
+	private void DrawResultMainWindow() {
+		//Zeichne result in MainWindow PictureFrame
+	}
+
+	public static void StartCalculation(String start, String destination, String Algorithm) {
+		//Test
+		System.out.printf("StartPoint is: %s; Destination is %s, Algorithm is: %s \n", start, destination, Algorithm);
+		//test end
+		
+		//get startNode and destination Node from Graph
+		node start;
+		node destination;
+		
+	}
+}

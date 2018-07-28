@@ -9,11 +9,17 @@ public class Modell extends Observable{
 	
 	private int[][] graph;							//muss noch gegen graph von Julius getauscht werden
 	
+	private String[] allNodeNames;
+	
+	private String[] Algorithms = {
+			"Dijkstra"
+	};
+	
 	public void setResults(int minDistance, ArrayList<Integer> resultNodes) {
 		this.minDistance = minDistance;
 		this.resultListNodes = resultNodes;
 		setChanged();
-		//notifyObservers(2); 						//Event 2 wird gefeuert
+		notifyObservers(2); 						//Event 2 wird gefeuert
 	}
 	
 	public int getminDist() {
@@ -27,12 +33,37 @@ public class Modell extends Observable{
 								
 	public void setHighWayGraph(int[][] graph) {
 		this.graph = graph;
+		
+		//get all nodes from graph function call by Julius' graph class
+//		ArrayList<String> nodesNames = new ArrayList<>();
+//		for (node n : graph) {
+//			nodesNames.add(n.name());
+//		}
+//		allNodeNames = (String[])nodesNames.toArray();
+		
+		//derzeit placeholder:
+		//Test:
+				String[] a = {
+				"Hallo", "2", "3"
+				};
+				allNodeNames = a;
+				//
+		//test ende
+		
 		setChanged();
 		notifyObservers(1);							//Event 1 wird gefeuert
 	}
 	
 	public int[][] getHighWayGraph() {
 		return this.graph;
+	}
+	
+	public String[] getAllNames() {
+		return this.allNodeNames;
+	}
+	
+	public String[] getAlgorithms() {
+		return this.Algorithms;
 	}
 
 }

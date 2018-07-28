@@ -1,0 +1,37 @@
+package GUI;
+
+import java.util.ArrayList;
+
+import javax.swing.SwingWorker;
+
+import Logic.DijkstraAlgorithm;
+
+public class AlgorithmWorker extends SwingWorker<Integer, Integer> {
+
+	private Modell modell;
+	
+	public AlgorithmWorker(Modell modell) {
+		this.modell = modell;
+	}
+	
+	@Override
+	protected Integer doInBackground() throws Exception {
+
+
+		
+		//test:
+		DijkstraAlgorithm testAlgo = new DijkstraAlgorithm(1,8, modell.getHighWayGraph());
+		testAlgo.startAlgorithm();
+
+		ArrayList<Integer > resultTest = testAlgo.getResultList();
+		System.out.println("Min Distance is: " + testAlgo.getMinDistance());
+		System.out.print("Reihenfolge der Knoten ist: ");
+		for (int t : resultTest) {
+			System.out.print(t + "; ");
+		}
+		//test end
+		
+		return null;
+	}
+
+}

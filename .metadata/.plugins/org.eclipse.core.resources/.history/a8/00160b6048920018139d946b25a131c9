@@ -1,0 +1,44 @@
+/**
+ * 
+ * @author Robin Schneider
+ */
+
+package GUI;
+
+import java.awt.*;
+import java.util.ArrayList;
+
+import javax.swing.*;
+
+public class PictureFrame extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String imagePath;
+
+	public PictureFrame (String imagePath) {
+		this.imagePath = imagePath;
+	}
+	
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		
+		Graphics2D graphics = (Graphics2D) g;
+		
+		ImageIcon img = new ImageIcon(imagePath);
+		Image image = img.getImage();
+		graphics.drawImage(image, 0, 0, this.getSize().width, this.getSize().height, null);						
+	}
+	
+	public void DrawResultRoute(ArrayList<Integer> resultList) {					//später gegen Knoten Klasse tauschen.
+		//erstelle gleichzeitig einen String der die Route beschreibt:
+		//hier muss Knoten gezeichnet werden:
+		//zeichne ersten Knoten in Bild per Koordinaten
+		//setzte die variable node precessor auf den startknoten
+		//for every node in resultList / {vs}
+		//draw node in image per Coordinates
+		//
+	}
+}

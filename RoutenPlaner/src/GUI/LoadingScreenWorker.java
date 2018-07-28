@@ -53,23 +53,13 @@ public class LoadingScreenWorker extends SwingWorker<Integer, Integer>{
 		testGraph[9][5] = 3;
 		testGraph[9][8] = 3;
 		
- 
- 
-		DijkstraAlgorithm testAlgo = new DijkstraAlgorithm(1,8, testGraph);
-		testAlgo.startAlgorithm();
 
-		ArrayList<Integer > resultTest = testAlgo.getResultList();
-		System.out.println("Min Distance is: " + testAlgo.getMinDistance());
-		System.out.print("Reihenfolge der Knoten ist: ");
-		for (int t : resultTest) {
-			System.out.print(t + "; ");
-		}
 		Thread.sleep(2000);
 		//Test endet hier 
-		
+			
 		
 		//Übertrage geparsten Graph ins Modell
-		modell.setHighWayGraph(null);
+		modell.setHighWayGraph(testGraph);
 		
 		return null;
 	}

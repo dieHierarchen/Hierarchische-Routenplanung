@@ -2,12 +2,15 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="resultGraph" key="selection"/>
+		<item value="//&#x09;&#x09;//test:" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="//&#x09;&#x09;//test:"/>
+			<item value="switch(algorithm) {"/>
+			<item value="&#x09;&#x09;ArrayList&lt;String&gt; nodesNames = new ArrayList&lt;&gt;();"/>
 			<item value="resultGraph"/>
 		</list>
 		<list key="replacehistory">

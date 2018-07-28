@@ -25,6 +25,7 @@ public class LoadingAppWindow extends JFrame {
 		this.setTitle("Hierarchischer Routenplaner");
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		this.setSize(350, 350);
+		this.setResizable(false);
 	}
 	
 	private void initializeComponents() {
@@ -32,7 +33,7 @@ public class LoadingAppWindow extends JFrame {
 		pane.setLayout(new BorderLayout());
 		
 		//Center:
-		PictureFrame pictureFrame = new PictureFrame("C:\\Users\\User\\Downloads\\Taxi.jpg");
+		PictureFrame pictureFrame = new PictureFrame("image/taxi.jpg");
 		pane.add(BorderLayout.CENTER, pictureFrame);
 		
 		//South:			
