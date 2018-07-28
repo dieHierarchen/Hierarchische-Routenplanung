@@ -2,10 +2,8 @@ package GUI;
 
 import java.util.Observable;
 import java.util.Observer;
-
 import javax.swing.SwingWorker;
 import javax.xml.bind.TypeConstraintException;
-import javax.xml.soap.Node;
 
 public class Presenter implements Observer{
 	
@@ -46,7 +44,7 @@ public class Presenter implements Observer{
 			}
 			if (eventHandle == 2) {
 				mainWindow.stopProgressBar();
-				mainWindow.displayResults(modell.getresultList(), modell.getminDist());
+				mainWindow.displayResults(modell.getresultList(), modell.getminDist(), modell.getTimeLastetForCalc());
 				System.out.println("Finished Work");
 			}
 		}

@@ -22,7 +22,8 @@ public class AlgorithmWorker extends SwingWorker<Integer, Integer> {
 	
 	@Override
 	protected Integer doInBackground() throws Exception {
-
+		long startTime = System.currentTimeMillis();
+		
 		System.out.println("Before Switch");
 		switch(algorithm) {
 		case "Dijkstra" :
@@ -37,15 +38,13 @@ public class AlgorithmWorker extends SwingWorker<Integer, Integer> {
 			for (int t : resultTest) {
 				System.out.print(t + "; ");
 			}
-			//test end
-			
-			//test
 			System.out.println("After Switch");
 			Thread.sleep(2000);
 			//test ends here
 			
-			
-			modell.setResults(dijkstra.getMinDistance(), dijkstra.getResultList());	
+			long endTime = System.currentTimeMillis();
+			double diff = (endTime - startTime) / 1000;
+			modell.setResults(dijkstra.getMinDistance(), dijkstra.getResultList(), diff);	
 				
 			break;
 			

@@ -15,9 +15,16 @@ public class Modell extends Observable{
 			"Dijkstra"
 	};
 	
-	public void setResults(int minDistance, ArrayList<Integer> resultNodes) {
+	private double timeLastedForCalc;
+	
+	public double getTimeLastetForCalc() {
+		return this.timeLastedForCalc;
+	}
+	
+	public void setResults(int minDistance, ArrayList<Integer> resultNodes, double timeLastedForCalc) {
 		this.minDistance = minDistance;
 		this.resultListNodes = resultNodes;
+		this.timeLastedForCalc = timeLastedForCalc;
 		setChanged();
 		notifyObservers(2); 						//Event 2 wird gefeuert
 	}

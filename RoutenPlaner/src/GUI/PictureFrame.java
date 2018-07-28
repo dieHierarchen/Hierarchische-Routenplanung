@@ -6,7 +6,6 @@
 package GUI;
 
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 
@@ -50,23 +49,73 @@ public class PictureFrame extends JPanel {
 		//DrawLine from precessor.coordinates to node.coordinates
 		//set pressecor to node
 		
-		//übergangsweise folgender placeholder:
+		
+		
+		//test
+		//coord. southesPoint Germany:
 		Graphics2D graphics = (Graphics2D) this.getGraphics();
-		graphics.fill(new Ellipse2D.Double(100, 100, 10, 10));
-		graphics.fill(new Ellipse2D.Double(300, 300, 10, 10));
-		graphics.draw(new Line2D.Double(105,105,305,305));			//calculate +5 which is the radius of the Ellipse
-																	//so that the Line will intersects the ellipse in its center
-		graphics.fill(new Ellipse2D.Double(350, 50, 10, 10));
-		graphics.fill(new Ellipse2D.Double(162, 0, 10, 10));
-		graphics.draw(new Line2D.Double(105,105,355,55));
+		double latSouthest = 47.27;
+		double longSouthest = 10.68;
+		drawCenteredCircle(graphics, (int)CalcLongCoord(longSouthest), (int)CalcLatCoord(latSouthest), 15);
+		
+		//coord. northest Point Germany:
+		double latNorthest = 55.1;
+		double longNorthest = 8.42;
+		drawCenteredCircle(graphics, (int)CalcLongCoord(longNorthest), (int)CalcLatCoord(latNorthest), 15);
+		
+		//coord. Stuttgart:
+				double latStutt = 48.778;
+				double longStutt = 9.18;
+				drawCenteredCircle(graphics, (int)CalcLongCoord(longStutt), (int)CalcLatCoord(latStutt), 15);
+				graphics.draw(new Line2D.Double((int)CalcLongCoord(longStutt), (int)CalcLatCoord(latStutt),
+						(int)CalcLongCoord(longSouthest), (int)CalcLatCoord(latSouthest)));
+				graphics.draw(new Line2D.Double((int)CalcLongCoord(longStutt), (int)CalcLatCoord(latStutt),
+						(int)CalcLongCoord(longNorthest), (int)CalcLatCoord(latNorthest)));
+
+		//test ends here
+
 		
 		return "Distance to destination is " + minDistance + " km \n"
 				+ "\n"
 				+ "The result String will stand right here";
 	}
 	
-	private int CalcCoords(int Coordinate) {
+	private void drawCenteredCircle(Graphics2D g, int x, int y, int r) {
+		  x = x-(r/2);
+		  y = y-(r/2);
+		  g.fillOval(x,y,r,r);
+		}
+	
+	private long CalcLatCoord(double coordinateLat) {
 		//rechne coordinaten von realem Maßstab auf Deutschlandkarte um
-		return 0;
+		double diff = coordinateLat - 47.27;
+		double newCoord= 700 - (diff * 88.255);
+		
+		
+		if (newCoord < 0) {
+			return 0;
+		}
+		else if (newCoord > 700) {
+			return 700;
+		}
+		else {
+			return Math.round(newCoord);
+		}
+	}
+	
+	private long CalcLongCoord(double coordinateLong) {
+		//rechne coordinaten von realem Maßstab auf Deutschlandkarte um
+		double diff = coordinateLong - 5.92;
+		double newCoord= (diff * 62.87);
+		
+		if (newCoord < 0) {
+			return 0;
+		}
+		else if (newCoord > 585) {
+			return 585;
+		}
+		else {
+			return Math.round(newCoord);
+		}
 	}
 }

@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import org.xml.sax.helpers.AttributesImpl;
 
 
-//public class XmlEdgeParser extends XmlNodeParser{
-//
+public class XmlEdgeParser extends XmlNodeParser{
+
 //	public XmlEdgeParser(Graph graph) {
 //		super(graph);
 //	}
@@ -44,4 +44,4 @@ import org.xml.sax.helpers.AttributesImpl;
 //			}
 //		}
 //	}
-//}
+}

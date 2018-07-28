@@ -1,19 +1,19 @@
-//package Logic;
-//
-//import java.awt.List;
-//import java.util.ArrayList;
-//import java.util.Map.Entry;
-//
-//import org.w3c.dom.Element;
-//import org.xml.sax.Attributes;
-//import org.xml.sax.helpers.AttributesImpl;
-//import org.xml.sax.helpers.DefaultHandler;
-//
-//public class XmlNodeParser extends DefaultHandler {
-//	private AttributesImpl attributes = new AttributesImpl();
-//	private ElementContent elements;
-//	protected Graph graph;
-//	
+package Logic;
+
+import java.awt.List;
+import java.util.ArrayList;
+import java.util.Map.Entry;
+
+import org.w3c.dom.Element;
+import org.xml.sax.Attributes;
+import org.xml.sax.helpers.AttributesImpl;
+import org.xml.sax.helpers.DefaultHandler;
+
+public class XmlNodeParser extends DefaultHandler {
+	private AttributesImpl attributes = new AttributesImpl();
+	//private ElementContent elements;
+	//protected Graph graph;
+	
 //	public XmlNodeParser(Graph graph) {
 //		this.graph = graph;
 //	}
@@ -128,4 +128,4 @@
 //	public void characters(char[] ch, int start, int length) {
 //		
 //	}
-//}
+}
