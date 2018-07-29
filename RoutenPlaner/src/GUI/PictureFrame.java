@@ -54,18 +54,18 @@ public class PictureFrame extends JPanel {
 		//test
 		//coord. southesPoint Germany:
 		Graphics2D graphics = (Graphics2D) this.getGraphics();
-		double latSouthest = 47.27;
-		double longSouthest = 10.68;
+		double latSouthest = 47.270111;
+		double longSouthest = 10.178306;
 		drawCenteredCircle(graphics, (int)CalcLongCoord(longSouthest), (int)CalcLatCoord(latSouthest), 15);
 		
 		//coord. northest Point Germany:
-		double latNorthest = 55.1;
-		double longNorthest = 8.42;
+		double latNorthest = 55.057728;
+		double longNorthest = 8.415789;
 		drawCenteredCircle(graphics, (int)CalcLongCoord(longNorthest), (int)CalcLatCoord(latNorthest), 15);
 		
 		//coord. Stuttgart:
-				double latStutt = 48.778;
-				double longStutt = 9.18;
+				double latStutt = 48.778051;
+				double longStutt = 9.175093;
 				drawCenteredCircle(graphics, (int)CalcLongCoord(longStutt), (int)CalcLatCoord(latStutt), 15);
 				graphics.draw(new Line2D.Double((int)CalcLongCoord(longStutt), (int)CalcLatCoord(latStutt),
 						(int)CalcLongCoord(longSouthest), (int)CalcLatCoord(latSouthest)));
@@ -88,8 +88,8 @@ public class PictureFrame extends JPanel {
 	
 	private long CalcLatCoord(double coordinateLat) {
 		//rechne coordinaten von realem Maﬂstab auf Deutschlandkarte um
-		double diff = coordinateLat - 47.27;
-		double newCoord= 700 - (diff * 88.255);
+		double diff = coordinateLat - 47.270111;
+		double newCoord= 700 - (diff * 89.34452074);
 		
 		
 		if (newCoord < 0) {
@@ -105,8 +105,8 @@ public class PictureFrame extends JPanel {
 	
 	private long CalcLongCoord(double coordinateLong) {
 		//rechne coordinaten von realem Maﬂstab auf Deutschlandkarte um
-		double diff = coordinateLong - 5.92;
-		double newCoord= (diff * 62.87);
+		double diff = coordinateLong - 5.866867;
+		double newCoord= (diff * 65.80148789);
 		
 		if (newCoord < 0) {
 			return 0;

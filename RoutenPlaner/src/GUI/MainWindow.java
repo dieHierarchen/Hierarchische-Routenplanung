@@ -111,6 +111,7 @@ public class MainWindow extends JFrame{
 		textArea.setText("Please Select Your Route");
 		Dimension ScrollPaneDim = new Dimension(585, 600);
 		JScrollPane scrollPane = new JScrollPane(textArea);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setPreferredSize(ScrollPaneDim);
 		innerBox.add(scrollPane);
 		

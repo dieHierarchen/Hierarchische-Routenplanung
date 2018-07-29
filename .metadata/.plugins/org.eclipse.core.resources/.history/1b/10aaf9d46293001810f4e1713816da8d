@@ -27,10 +27,13 @@ public class MainWindow extends JFrame{
 	
 	private PictureFrame DrawCanvas;
 	private JTextArea textArea;
+	private JTextField  TimeNeeded;
 	
-	public void displayResults(ArrayList<Integer> resultList, int minDistance) {								//später gegen Knoten Klasse tauschen.
+	public void displayResults(ArrayList<Integer> resultList, int minDistance, double timeNeedForCalc) {								//später gegen Knoten Klasse tauschen.
 		String resultDescription = DrawCanvas.DrawResultRoute(resultList, minDistance);
 		textArea.setText(resultDescription);
+		this.TimeNeeded.setText(timeNeedForCalc + " Seconds");
+		
 	}
 	
 	private JProgressBar prgBar;
@@ -39,10 +42,6 @@ public class MainWindow extends JFrame{
 	}
 	public void stopProgressBar() {
 		prgBar.setVisible(false);
-	}
-	private JTextField TimeNeeded;
-	public void setTimeNeeded(int timeNeeded) {
-		this.TimeNeeded.setText(String.valueOf(timeNeeded));
 	}
 	
 	private Presenter presenter;
@@ -69,17 +68,23 @@ public class MainWindow extends JFrame{
 		North.setLayout(new FlowLayout(FlowLayout.LEFT));
 		pane.add(BorderLayout.NORTH, North);
 		
+		JLabel laStartP = new JLabel("Select your Start:");
+		Dimension dim = new Dimension(170, 20);
+		North.add(laStartP);
 		cbStartPoint = new JComboBox<String>();
-		Dimension cbDim = new Dimension(150, 20);
-		cbStartPoint.setPreferredSize(cbDim);
+		cbStartPoint.setPreferredSize(dim);
 		North.add(cbStartPoint);
 		
+		JLabel laDest= new JLabel("Select your Destination:");
+		North.add(laDest);
 		cbDestination = new JComboBox<String>();
-		cbDestination.setPreferredSize(cbDim);
+		cbDestination.setPreferredSize(dim);
 		North.add(cbDestination);
 		
+		JLabel laAlgo = new JLabel("Select Algorithm to calculate:");
+		North.add(laAlgo);
 		cbAlgorithm = new JComboBox<String>();
-		cbAlgorithm.setPreferredSize(cbDim);
+		cbAlgorithm.setPreferredSize(dim);
 		North.add(cbAlgorithm);
 		
 		JButton buStart = new JButton("Calculate Route");
@@ -99,23 +104,38 @@ public class MainWindow extends JFrame{
 		Center.setLayout(CenterGrid);
 		pane.add(BorderLayout.CENTER, Center);
 		
+		//inner Box:
+		Box innerBox = Box.createVerticalBox();
 		textArea = new JTextArea();
 		textArea.setEditable(false);
 		textArea.setText("Please Select Your Route");
+		Dimension ScrollPaneDim = new Dimension(585, 600);
 		JScrollPane scrollPane = new JScrollPane(textArea);
-		Center.add(scrollPane);
+		scrollPane.setPreferredSize(ScrollPaneDim);
+		innerBox.add(scrollPane);
 		
-		DrawCanvas =  new PictureFrame("image/deutschlandkarte.png");
+		PictureFrame test = new PictureFrame("image/six-Werbung.png");
+		Dimension TestDim = new Dimension(585, 100);
+		test.setPreferredSize(TestDim);
+		innerBox.add(test);
+		
+		Center.add(innerBox);
+		//end inner Box
+		
+		DrawCanvas =  new PictureFrame("image/Deutschland.png");
 		Center.add(DrawCanvas);
-		
+		//end Center
 		
 		//South:
 		JPanel South = new JPanel();
 		South.setLayout(new FlowLayout(2));
 		pane.add(BorderLayout.SOUTH, South);
 		
-		JTextField TimeNeeded = new JTextField();
-		Dimension Dim2 = new Dimension(50, 20);
+		JLabel laTimeNeeded = new JLabel("Calculation lasted: ");
+		South.add(laTimeNeeded);
+		
+		TimeNeeded = new JTextField();
+		Dimension Dim2 = new Dimension(100, 20);
 		TimeNeeded.setPreferredSize(Dim2);
 		TimeNeeded.setEditable(false);
 		TimeNeeded.setText("Empty");
@@ -123,7 +143,7 @@ public class MainWindow extends JFrame{
 		
 		prgBar = new JProgressBar();
 		prgBar.setIndeterminate(true);
-		prgBar.setPreferredSize(cbDim);
+		prgBar.setPreferredSize(dim);
 		prgBar.setForeground(Color.ORANGE);
 		prgBar.setVisible(false);
 		South.add(prgBar);
