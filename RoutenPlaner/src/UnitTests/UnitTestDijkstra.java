@@ -1,3 +1,7 @@
+/**
+ * @author Robin.Schneider
+ */
+
 package UnitTests;
 
 import Logic.*;

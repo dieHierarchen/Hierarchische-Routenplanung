@@ -1,0 +1,26 @@
+package GUI;
+
+import javax.swing.SwingWorker;
+
+public class CommercialWoker extends SwingWorker<Integer, Integer>{
+
+	private volatile boolean addBlock;
+	private Modell model;
+	
+	public CommercialWoker(Modell model) {
+		addBlock = false;
+		this.model = model;
+	}
+
+	
+	@Override
+	protected Integer doInBackground() throws Exception {
+		
+		while (!addBlock) {
+			
+		}
+		
+		return null;
+	}
+
+}

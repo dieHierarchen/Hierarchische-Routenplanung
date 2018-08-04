@@ -1,0 +1,30 @@
+package GUI;
+
+import java.util.Random;
+
+import javax.swing.SwingWorker;
+
+public class CommercialWoker extends SwingWorker<Integer, Integer>{
+
+	private volatile boolean addBlock;
+	private Modell model;
+	
+	public CommercialWoker(Modell model) {
+		addBlock = false;
+		this.model = model;
+	}
+
+	
+	@Override
+	protected Integer doInBackground() throws Exception {
+		
+		while (!addBlock) {
+			Random random = new Random();
+			
+			int commercialNo = random.nextInt(4);
+		}
+		
+		return null;
+	}
+
+}

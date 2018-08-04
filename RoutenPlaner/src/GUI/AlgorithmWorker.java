@@ -1,3 +1,7 @@
+/**
+ * @author Robin.Schneider
+ */
+
 package GUI;
 
 import java.util.ArrayList;

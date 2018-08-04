@@ -1,3 +1,7 @@
+/**
+ * @author Robin.Schneider
+ */
+
 package GUI;
 
 import java.awt.*;
@@ -44,12 +48,16 @@ public class MainWindow extends JFrame{
 		prgBar.setVisible(false);
 	}
 	
+	private String CommercialPath;
+	
 	private Presenter presenter;
 	
-	public MainWindow(Presenter presenter) {
+	public MainWindow(Presenter presenter, String Commercial) {
+		this.presenter = presenter;
+		this.CommercialPath = Commercial;
+				
 		initializeWindow();
 		initializeComponents();
-		this.presenter = presenter;
 	}
 	
 	private void initializeWindow() {
@@ -109,16 +117,16 @@ public class MainWindow extends JFrame{
 		textArea = new JTextArea();
 		textArea.setEditable(false);
 		textArea.setText("Please Select Your Route");
-		Dimension ScrollPaneDim = new Dimension(585, 600);
+		Dimension ScrollPaneDim = new Dimension(585, 500);
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setPreferredSize(ScrollPaneDim);
 		innerBox.add(scrollPane);
 		
-		PictureFrame test = new PictureFrame("image/six-Werbung.png");
-		Dimension TestDim = new Dimension(585, 100);
-		test.setPreferredSize(TestDim);
-		innerBox.add(test);
+		PictureFrame PFcommercial = new PictureFrame(CommercialPath);
+		Dimension TestDim = new Dimension(585, 200);
+		PFcommercial.setPreferredSize(TestDim);
+		innerBox.add(PFcommercial);
 		
 		Center.add(innerBox);
 		//end inner Box

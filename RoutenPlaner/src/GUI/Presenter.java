@@ -1,7 +1,13 @@
+/**
+ * @author Robin.Schneider
+ */
+
 package GUI;
 
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Random;
+
 import javax.swing.SwingWorker;
 import javax.xml.bind.TypeConstraintException;
 
@@ -17,7 +23,7 @@ public class Presenter implements Observer{
 		modell = new Modell();
 		modell.addObserver(this);
 		
-		mainWindow = new MainWindow(this);
+		mainWindow = new MainWindow(this, CommercialPath());
 		loadingScreen = new LoadingAppWindow();
 		loadingWorker = new LoadingScreenWorker(modell);
 		algoWorker = new AlgorithmWorker(modell, "notSetYet");
@@ -92,5 +98,30 @@ public class Presenter implements Observer{
 			System.out.println("Is currently running!");
 		}
 		
+	}
+	
+	public String CommercialPath() {
+		String path = " ";
+		
+		Random random = new Random();
+		int commercialNo = random.nextInt(4);
+		switch(commercialNo) {
+		case 0:
+			path = "image\\Werbung_PH1.png";
+			break;
+		case 1:
+			path = "image\\Werbung_PH2.png";
+			break;
+		case 2:
+			path = "image\\Werbung_PH3.png";
+			break;	
+		case 3:
+			path = "image\\Werbung_PH4.png";
+			break;
+		case 4:
+			path = "image\\Werbung_PH5.png";
+			break;
+		}
+		return path;
 	}
 }

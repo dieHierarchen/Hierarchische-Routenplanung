@@ -1,0 +1,50 @@
+package GUI;
+
+import java.util.Random;
+
+import javax.swing.SwingWorker;
+
+public class CommercialWoker extends SwingWorker<Integer, Integer>{
+
+	private volatile boolean addBlock;
+	private Modell model;
+	
+	public CommercialWoker(Modell model) {
+		addBlock = false;
+		this.model = model;
+	}
+
+	
+	@Override
+	protected Integer doInBackground() throws Exception {
+		
+		while (!addBlock) {
+			Random random = new Random();
+			int commercialNo = random.nextInt(4);
+			
+			String path = " ";
+			switch(commercialNo) {
+			case 0:
+				path = "image//Werbung_PH1";
+				break;
+			case 1:
+				path = "image//Werbung_PH2";
+				break;
+			case 2:
+				path = "image//Werbung_PH3";
+				break;	
+			case 3:
+				path = "image//Werbung_PH4";
+				break;
+			case 4:
+				path = "image//Werbung_PH5";
+				break;
+			}
+			model.setCommercialPath(path);
+			Thread.sleep(50000);
+		}
+		
+		return null;
+	}
+
+}
