@@ -1,3 +1,7 @@
+/**
+ * @author Robin.Schneider
+ */
+
 package GUI;
 
 import java.awt.*;
@@ -44,12 +48,16 @@ public class MainWindow extends JFrame{
 		prgBar.setVisible(false);
 	}
 	
+	private String CommercialPath;
+	
 	private Presenter presenter;
 	
-	public MainWindow(Presenter presenter) {
+	public MainWindow(Presenter presenter, String Commercial) {
+		this.presenter = presenter;
+		this.CommercialPath = Commercial;
+				
 		initializeWindow();
 		initializeComponents();
-		this.presenter = presenter;
 	}
 	
 	private void initializeWindow() {
@@ -104,20 +112,24 @@ public class MainWindow extends JFrame{
 		Center.setLayout(CenterGrid);
 		pane.add(BorderLayout.CENTER, Center);
 		
-		//inner Center:
-		JPanel innerCenter = new JPanel();
-		JPanel listPane = new JPanel();
-		innerCenter.setLayout(new BoxLayout(listPane,BoxLayout.PAGE_AXIS));
-		Center.add(innerCenter);
-		
+		//inner Box:
+		Box innerBox = Box.createVerticalBox();
 		textArea = new JTextArea();
 		textArea.setEditable(false);
 		textArea.setText("Please Select Your Route");
-		//Dimension ScrollPaneDim = new Dimension(585, 700);
+		Dimension ScrollPaneDim = new Dimension(585, 500);
 		JScrollPane scrollPane = new JScrollPane(textArea);
-		//scrollPane.setPreferredSize(ScrollPaneDim);
-		listPane.add(scrollPane);
-		//end inner Center
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setPreferredSize(ScrollPaneDim);
+		innerBox.add(scrollPane);
+		
+		PictureFrame PFcommercial = new PictureFrame(CommercialPath);
+		Dimension TestDim = new Dimension(585, 200);
+		PFcommercial.setPreferredSize(TestDim);
+		innerBox.add(PFcommercial);
+		
+		Center.add(innerBox);
+		//end inner Box
 		
 		DrawCanvas =  new PictureFrame("image/Deutschland.png");
 		Center.add(DrawCanvas);

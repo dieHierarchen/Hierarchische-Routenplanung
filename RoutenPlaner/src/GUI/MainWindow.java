@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.*;
 
@@ -47,14 +48,11 @@ public class MainWindow extends JFrame{
 	public void stopProgressBar() {
 		prgBar.setVisible(false);
 	}
-	
-	private String CommercialPath;
-	
+		
 	private Presenter presenter;
 	
-	public MainWindow(Presenter presenter, String Commercial) {
+	public MainWindow(Presenter presenter) {
 		this.presenter = presenter;
-		this.CommercialPath = Commercial;
 				
 		initializeWindow();
 		initializeComponents();
@@ -123,7 +121,7 @@ public class MainWindow extends JFrame{
 		scrollPane.setPreferredSize(ScrollPaneDim);
 		innerBox.add(scrollPane);
 		
-		PictureFrame PFcommercial = new PictureFrame(CommercialPath);
+		PictureFrame PFcommercial = new PictureFrame(CommercialPath());
 		Dimension TestDim = new Dimension(585, 200);
 		PFcommercial.setPreferredSize(TestDim);
 		innerBox.add(PFcommercial);
@@ -158,6 +156,32 @@ public class MainWindow extends JFrame{
 		South.add(prgBar);
 		
 		
+	}
+	
+	private String CommercialPath() {
+		String path = " ";
+		
+		Random random = new Random();
+		int commercialNo = random.nextInt(5);
+		switch(commercialNo) {
+		case 0:
+			path = "image\\Comm_1.jpg";
+			break;
+		case 1:
+			path = "image\\Comm_2.jpg";
+			break;
+		case 2:
+			path = "image\\Comm_3.png";
+			break;	
+		case 3:
+			path = "image\\Comm_4.png";
+			break;
+		case 4:
+			path = "image\\Comm_5.jpg";
+			break;
+		}
+		System.out.println("Comm num is" + commercialNo);
+		return path;
 	}
 	
 }

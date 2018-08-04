@@ -20,7 +20,7 @@ public class Presenter implements Observer{
 	public Presenter() {
 		modell = new Modell();
 		modell.addObserver(this);
-		mainWindow = new MainWindow(this);
+		
 		loadingScreen = new LoadingAppWindow();
 		loadingWorker = new LoadingScreenWorker(modell);
 		algoWorker = new AlgorithmWorker(modell, "notSetYet");
