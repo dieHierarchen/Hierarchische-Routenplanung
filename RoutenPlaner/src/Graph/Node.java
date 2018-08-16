@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class Node {
+public class Node implements Comparable<Node>{
 
 	private String label;
 	private ArrayList<Edge> adjazenzList;
@@ -84,5 +84,10 @@ public class Node {
 
 	public void setAdjazenzList(ArrayList<Edge> adjazenzList) {
 		this.adjazenzList = adjazenzList;
+	}
+
+	@Override
+	public int compareTo(Node o) {
+		return this.getLabel().compareTo(o.getLabel());
 	}
 }

@@ -11,6 +11,8 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+import Graph.Node;
+
 public class PictureFrame extends JPanel {
 	/**
 	 * 
@@ -33,7 +35,7 @@ public class PictureFrame extends JPanel {
 		graphics.drawImage(image, 0, 0, this.getSize().width, this.getSize().height, null);						
 	}
 	
-	public String DrawResultRoute(ArrayList<Integer> resultList, int minDistance) {					//später gegen Knoten Klasse tauschen.
+	public String DrawResultRoute(ArrayList<Node> resultList, int minDistance) {					
 		//clean imageFrame first:
 		paintComponent(this.getGraphics());
 		

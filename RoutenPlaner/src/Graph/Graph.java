@@ -131,6 +131,24 @@ public class Graph {
 		return existing;
 
 	}
+	
+	/* Gibt Kantenwert zw. den Knoten zurück, oder -1, wenn keine Kante existiert */
+
+	public int getEdgeWeight(Node from, Node to)
+	{
+		Iterator<Edge> i = from.getAdjazenzList().iterator();
+		while(i.hasNext())
+		{
+			Edge edge = i.next();
+			if(edge.getAim().equals(to))
+			{
+				return edge.getWeight();
+			}
+		}
+
+		return -1;
+
+	}
 
 	/* Gibt Liste aller Knoten im Graphen zurÃ¼ck */
 

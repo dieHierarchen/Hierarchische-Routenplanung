@@ -1,0 +1,182 @@
+/**
+ * 
+ * @author Robin Schneider
+ * @version 0.5
+ *
+ */
+
+
+package Logic;
+
+import java.util.ArrayList;
+import java.util.TreeMap;
+
+import Graph.Edge;
+import Graph.Graph;
+import Graph.Node;
+
+
+public class DijkstraAlgorithm {
+	
+	private Node startingNode;
+	private Node finalNode;
+	
+	private Graph graph;
+	private Graph resultGraph;
+	
+	private TreeMap<Node, Integer> distance;
+	
+	private ArrayList<Node> result;
+	private int minDistanceResult = 0;
+	
+	private boolean founddExactPathAlready;
+	
+	public ArrayList<Node>getResultList() {
+		return this.result;
+	}
+	public int getMinDistance() {
+		return this.minDistanceResult;
+	}
+	
+	
+	public DijkstraAlgorithm(Node startingNode, Node finalNode, Graph graph) {
+		this.startingNode = startingNode;
+		this.finalNode = finalNode;
+		this.graph = graph;
+		initializeDijkstra();
+	}
+	
+	private void initializeDijkstra() {
+		distance = new TreeMap<>();
+		result = new ArrayList<>();
+		founddExactPathAlready = false;
+		
+		resultGraph = new Graph();
+		for (Node n : graph.getAllNodes()) {
+			resultGraph.addNode(n.getLabel());
+		}
+		
+	}
+	
+	public void startAlgorithm() {
+		if (startingNode.getLabel() == finalNode.getLabel()) {
+			result.add(startingNode);
+			minDistanceResult = 0;
+		}
+		else
+		{
+			buildSpanningTree();
+			minDistanceResult = distance.get(finalNode);
+			
+			//Test:
+			resultGraph.printNodesAndEdges();
+			//Test ende
+			
+			recursivPathFinder(startingNode, finalNode, new ArrayList<Node>());
+		}
+	}
+	
+	private void buildSpanningTree() {
+		distance.put(startingNode, 0);
+		do {
+			Edge minEdge = minOpenEdge();
+			//weight in spanning tree doens`t mind -> 1 for easier implementation of findPath
+			resultGraph.addEdge(minEdge.getStart().getLabel(), minEdge.getAim().getLabel(), 1); 	
+			
+			//Test:
+			System.out.println("MIn Edhe goes from " + minEdge.getStart().getLabel() + "to " + minEdge.getAim().getLabel() + "with weight: " + minEdge.getWeight());
+			//Test ende
+			
+		}while (!distance.containsKey(finalNode));
+	}
+	
+	private Edge minOpenEdge() {
+		Edge minEdge = null;	//initial 
+		int minValue = 0;		//initial
+		
+		int actualEdgeValue = 0;
+		int actualDistancefromStart = 0;
+		
+		for (Node n : distance.keySet()) {
+			System.out.println("actual node is " + n.getLabel());
+			for (Node neigh : graph.getNeighbours(n)) {
+				actualEdgeValue= graph.getEdgeWeight(n, neigh);
+				if (actualEdgeValue != 0 && (distance.containsKey(n) && !distance.containsKey(neigh))) {
+					actualDistancefromStart = actualEdgeValue + distance.get(n);
+					if (minEdge == null | actualDistancefromStart < minValue) {
+						minEdge = new Edge(n, neigh, actualEdgeValue);
+						minValue = actualDistancefromStart;
+					}
+				}
+			}
+			
+		}
+		distance.put(minEdge.getAim(), minValue);		//mindEdge.getAim() == neigh 
+		return minEdge;							
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	private void recursivPathFinder(Node node, Node finalNode, ArrayList<Node> resultTemp) {
+		resultGraph.printNodesAndEdges();
+//		System.out.println("ActualNode is " + node.getLabel());
+//		if (!founddExactPathAlready){
+//			resultTemp.add(node);
+//
+//			if (resultGraph.checkEdges(node, finalNode)){
+//				resultTemp.add(finalNode);
+//				this.result = resultTemp;
+//				founddExactPathAlready = true;
+//			} else {
+//				for (Node neigh : resultGraph.getNeighbours(node)) {
+//					System.out.println("Neighbours of "+ node.getLabel() + "are: " + neigh.getLabel());
+//					if (!resultTemp.contains(neigh)) {
+//						ArrayList<Node> CopyOfResult;
+//						try {
+//							CopyOfResult = (ArrayList<Node>) resultTemp.clone();
+//						}
+//						catch (ClassCastException e) {
+//							throw new ClassCastException("ResultTemp has to be an ArrayList<Integer>");
+//						}
+//						System.out.println("Recursion for " + node.getLabel() + "to " + neigh.getLabel());
+//						recursivPathFinder(neigh, finalNode, CopyOfResult);
+//					}
+//				}
+//
+//			}
+		resultTemp.add(node);
+		
+		if (node == finalNode) {
+			this.result = resultTemp;
+			return;
+		}
+		System.out.print("ActualNode is: " + node.getLabel() + " with Neighbors: ");
+		
+		for (Node neigh : resultGraph.getNeighbours(node)) {
+			System.out.print(neigh.getLabel() + "; ");
+		}
+		System.out.print("\n");
+		
+		
+		for (Node neigh : resultGraph.getNeighbours(node)) {
+			System.out.println(neigh.getLabel());
+			if (!resultTemp.contains(neigh)) {
+				
+				ArrayList<Node> CopyOfResult;
+				try {
+					CopyOfResult = (ArrayList<Node>) resultTemp.clone();
+				}
+				catch (ClassCastException e) {
+					throw new ClassCastException("ResultTemp has to be an ArrayList<Integer>");
+				}
+				
+				recursivPathFinder(neigh, finalNode, CopyOfResult);
+			}
+		}
+		
+		
+	}
+			
+	
+	
+}

@@ -7,11 +7,14 @@ package GUI;
 import java.util.ArrayList;
 import java.util.Observable;
 
+import Graph.Graph;
+import Graph.Node;
+
 public class Modell extends Observable{
-	private ArrayList<Integer> resultListNodes;		//Später müssen hier Knoten statt Int sein
+	private ArrayList<Node> resultListNodes;		
 	private int minDistance;
 	
-	private int[][] graph;							//muss noch gegen graph von Julius getauscht werden
+	private Graph graph;							
 	
 	private String[] allNodeNames;
 	
@@ -25,7 +28,7 @@ public class Modell extends Observable{
 		return this.timeLastedForCalc;
 	}
 	
-	public void setResults(int minDistance, ArrayList<Integer> resultNodes, double timeLastedForCalc) {
+	public void setResults(int minDistance, ArrayList<Node> resultNodes, double timeLastedForCalc) {
 		this.minDistance = minDistance;
 		this.resultListNodes = resultNodes;
 		this.timeLastedForCalc = timeLastedForCalc;
@@ -37,12 +40,12 @@ public class Modell extends Observable{
 		return this.minDistance;
 	}
 	
-	public ArrayList<Integer> getresultList(){
+	public ArrayList<Node> getresultList(){
 		return this.resultListNodes;
 	}
 	
 								
-	public void setHighWayGraph(int[][] graph) {
+	public void setHighWayGraph(Graph graph) {
 		this.graph = graph;
 		
 		//get all nodes from graph function call by Julius' graph class
@@ -65,7 +68,7 @@ public class Modell extends Observable{
 		notifyObservers(1);							//Event 1 wird gefeuert
 	}
 	
-	public int[][] getHighWayGraph() {
+	public Graph getHighWayGraph() {
 		return this.graph;
 	}
 	

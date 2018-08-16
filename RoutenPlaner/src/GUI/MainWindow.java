@@ -12,6 +12,8 @@ import java.util.Random;
 
 import javax.swing.*;
 
+import Graph.Node;
+
 public class MainWindow extends JFrame{
 
 	/**
@@ -34,7 +36,7 @@ public class MainWindow extends JFrame{
 	private JTextArea textArea;
 	private JTextField  TimeNeeded;
 	
-	public void displayResults(ArrayList<Integer> resultList, int minDistance, double timeNeedForCalc) {								//später gegen Knoten Klasse tauschen.
+	public void displayResults(ArrayList<Node> resultList, int minDistance, double timeNeedForCalc) {								//später gegen Knoten Klasse tauschen.
 		String resultDescription = DrawCanvas.DrawResultRoute(resultList, minDistance);
 		textArea.setText(resultDescription);
 		this.TimeNeeded.setText(timeNeedForCalc + " Seconds");

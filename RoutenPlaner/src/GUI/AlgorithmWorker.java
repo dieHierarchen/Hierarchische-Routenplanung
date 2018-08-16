@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import javax.swing.SwingWorker;
 
+import Graph.Node;
 import Logic.DijkstraAlgorithm;
 
 public class AlgorithmWorker extends SwingWorker<Integer, Integer> {
@@ -31,16 +32,18 @@ public class AlgorithmWorker extends SwingWorker<Integer, Integer> {
 		System.out.println("Before Switch");
 		switch(algorithm) {
 		case "Dijkstra" :
-			DijkstraAlgorithm dijkstra = new DijkstraAlgorithm(1, 8, modell.getHighWayGraph());			//must get startNode and destinationNode
+			Node startNode = modell.getHighWayGraph().getNode("1");
+			Node EndNode = modell.getHighWayGraph().getNode("8");
+			DijkstraAlgorithm dijkstra = new DijkstraAlgorithm(startNode, EndNode, modell.getHighWayGraph());			//must get startNode and destinationNode
 			dijkstra.startAlgorithm();
 			
 			//test:
 			System.out.println("Dijkstra in work");
-			ArrayList<Integer > resultTest = dijkstra.getResultList();
+			ArrayList<Node > resultTest = dijkstra.getResultList();
 			System.out.println("Min Distance is: " + dijkstra.getMinDistance());
 			System.out.print("Reihenfolge der Knoten ist: ");
-			for (int t : resultTest) {
-				System.out.print(t + "; ");
+			for (Node t : resultTest) {
+				System.out.print(t.getLabel() + "; ");
 			}
 			System.out.println("After Switch");
 			Thread.sleep(2000);

@@ -1,0 +1,17 @@
+import java.util.ArrayList;
+
+import org.junit.Before;
+
+import GUI.Presenter;
+import Graph.Graph;
+import Graph.Node;
+import Logic.DijkstraAlgorithm;
+
+public class MainClass {
+	public static void main(String[] args) throws InterruptedException {	
+		Presenter presenter = new Presenter();
+		presenter.startApplication();	
+		
+	}
+}
+

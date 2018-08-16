@@ -2,19 +2,19 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="Graphics2D graphics = (Graphics2D) this.getGraphics();" key="selection"/>
+		<item value="resultGraph" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="resultGraph"/>
 			<item value="Graphics2D graphics = (Graphics2D) this.getGraphics();"/>
 			<item value="coordinate"/>
 			<item value="null"/>
 			<item value="//&#x09;&#x09;//test:"/>
 			<item value="switch(algorithm) {"/>
 			<item value="&#x09;&#x09;ArrayList&lt;String&gt; nodesNames = new ArrayList&lt;&gt;();"/>
-			<item value="resultGraph"/>
 		</list>
 		<list key="replacehistory">
 		</list>
@@ -23,7 +23,7 @@
 		<item value="284" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="391" key="DIALOG_HEIGHT"/>
-		<item value="826" key="DIALOG_X_ORIGIN"/>
-		<item value="268" key="DIALOG_Y_ORIGIN"/>
+		<item value="1268" key="DIALOG_X_ORIGIN"/>
+		<item value="264" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

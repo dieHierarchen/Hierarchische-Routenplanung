@@ -1,0 +1,61 @@
+import java.util.ArrayList;
+
+import org.junit.Before;
+
+import GUI.Presenter;
+import Graph.Graph;
+import Graph.Node;
+import Logic.DijkstraAlgorithm;
+
+public class MainClass {
+	public static void main(String[] args) throws InterruptedException {	
+//		Presenter presenter = new Presenter();
+//		presenter.startApplication();	
+		
+		
+	//Testwiese:
+		Logic.DijkstraAlgorithm DijkstraAlgo;
+		Graph testGraph;
+			
+			testGraph = new Graph();
+			testGraph.addNode("1");
+			testGraph.addNode("2");
+			testGraph.addNode("3");
+			testGraph.addNode("4");
+			testGraph.addNode("5");
+			testGraph.addNode("6");
+			testGraph.addNode("7");
+			testGraph.addNode("8");
+			testGraph.addNode("9");
+			
+			//adding edges:
+			
+			testGraph.addEdge("1", "3", 5);
+			testGraph.addEdge("1", "2", 6);
+			testGraph.addEdge("3", "4", 7);
+			testGraph.addEdge("2", "4", 3);
+			testGraph.addEdge("2", "8", 25);
+			testGraph.addEdge("2", "5", 10);
+			testGraph.addEdge("4", "7", 4);
+			testGraph.addEdge("5", "9", 3);
+			testGraph.addEdge("7", "8", 8);
+			testGraph.addEdge("8", "9", 3);
+						
+			//calculate shortest way from node 1 to node 8:
+			Node start = testGraph.getNode("9");
+			Node aim = testGraph.getNode("1");
+			DijkstraAlgo = new DijkstraAlgorithm(start, aim, testGraph);
+			DijkstraAlgo.startAlgorithm();
+			
+			
+			ArrayList<Node> result = DijkstraAlgo.getResultList();
+			System.out.println("Result goes by "+ result.size() + " nodes");
+			
+			for (Node n : result) {
+				System.out.println(n.getLabel());
+			}
+		
+			System.out.println("Distance is " + DijkstraAlgo.getMinDistance());
+	}
+}
+
