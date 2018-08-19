@@ -22,6 +22,22 @@ public class Modell extends Observable{
 			"Dijkstra"
 	};
 	
+	private Node StartNode;
+	public void setStartNode(Node startNode) {
+		this.StartNode = startNode;
+	}
+	public Node getStartNode() {
+		return this.StartNode;
+	}
+	
+	private Node DestinationNode;
+	public void setDestiNode(Node destNode) {
+		this.DestinationNode = destNode;
+	}
+	public Node getDestiNode() {
+		return this.DestinationNode;
+	}
+	
 	private double timeLastedForCalc;
 	
 	public double getTimeLastetForCalc() {
@@ -48,22 +64,15 @@ public class Modell extends Observable{
 	public void setHighWayGraph(Graph graph) {
 		this.graph = graph;
 		
-		//get all nodes from graph function call by Julius' graph class
-//		ArrayList<String> nodesNames = new ArrayList<>();
-//		for (node n : graph) {
-//			nodesNames.add(n.name());
-//		}
-//		allNodeNames = (String[])nodesNames.toArray();
+		ArrayList<String> nodesNames = new ArrayList<String>();
+		System.out.println("Graph set");
+		for (Node n : this.graph.getAllNodes()) {
+			nodesNames.add(n.getLabel());
+		}
 		
-		//derzeit placeholder:
-		//Test:
-				String[] a = {
-				"Hallo", "2", "3"
-				};
-				allNodeNames = a;
-				//
-		//test ende
-		
+		allNodeNames = new String[nodesNames.size()];
+		allNodeNames = (String[]) nodesNames.toArray(allNodeNames);
+	
 		setChanged();
 		notifyObservers(1);							//Event 1 wird gefeuert
 	}

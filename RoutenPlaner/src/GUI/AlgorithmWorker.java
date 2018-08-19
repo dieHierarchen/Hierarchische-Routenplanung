@@ -15,26 +15,23 @@ public class AlgorithmWorker extends SwingWorker<Integer, Integer> {
 
 	private Modell modell;
 	private String algorithm;
-	//private node startNode;
-	//private node destinationNode;
 	
 	public AlgorithmWorker(Modell modell, String Algorithm) {			//add node startNode und destinationNode to constructor
 		this.modell = modell;
 		this.algorithm = Algorithm;
-		//this.startNode = startNode;
-		//this.destinationNode = destinationNode;
 	}
 	
 	@Override
 	protected Integer doInBackground() throws Exception {
+		
 		long startTime = System.currentTimeMillis();
 		
 		System.out.println("Before Switch");
+		
+		
 		switch(algorithm) {
 		case "Dijkstra" :
-			Node startNode = modell.getHighWayGraph().getNode("1");
-			Node EndNode = modell.getHighWayGraph().getNode("8");
-			DijkstraAlgorithm dijkstra = new DijkstraAlgorithm(startNode, EndNode, modell.getHighWayGraph());			//must get startNode and destinationNode
+			DijkstraAlgorithm dijkstra = new DijkstraAlgorithm(modell.getStartNode(), modell.getDestiNode(), modell.getHighWayGraph());			//must get startNode and destinationNode
 			dijkstra.startAlgorithm();
 			
 			//test:

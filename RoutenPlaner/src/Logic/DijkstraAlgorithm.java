@@ -74,7 +74,6 @@ public class DijkstraAlgorithm {
 			Edge minEdge = minOpenEdge();
 			//weight in spanning tree doens`t mind -> 1 for easier implementation of findPath
 			resultGraph.addEdge(minEdge.getStart().getLabel(), minEdge.getAim().getLabel(), 1); 	
-			
 		}while (!distance.containsKey(finalNode));
 	}
 	

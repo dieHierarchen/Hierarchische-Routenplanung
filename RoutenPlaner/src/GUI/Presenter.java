@@ -68,20 +68,9 @@ public class Presenter implements Observer{
 		System.out.printf("StartPoint is: %s; Destination is %s, Algorithm is: %s \n", start, destination, Algorithm);
 		//test end
 		
-		//get startNode and destination Node from Graph
-//		node startNode = null;
-//		node destinationNode = null;
-//		
-//		while (start == null && destination == null) {
-//			for (Node n : modell.getHighWayGraph().getAllNodes()) {
-//				if (n.getName() == start) {
-//					startNode = n;
-//				}
-//				if (n.getName() == destination) {
-//					destinationNode = n;
-//				}
-//			}
-		
+		//set details like start and destination:
+		modell.setStartNode(modell.getHighWayGraph().getNode(start));
+		modell.setDestiNode(modell.getHighWayGraph().getNode(destination));
 			
 		if (algoWorker.getState() == SwingWorker.StateValue.PENDING ||
 				algoWorker.getState() == SwingWorker.StateValue.DONE) {

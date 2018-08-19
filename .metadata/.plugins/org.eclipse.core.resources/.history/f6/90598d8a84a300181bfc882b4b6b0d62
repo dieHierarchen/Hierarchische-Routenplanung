@@ -28,15 +28,14 @@ public class DijkstraAlgorithm {
 	
 	private ArrayList<Node> result;
 	private int minDistanceResult = 0;
-	
-	private boolean founddExactPathAlready;
-	
+		
 	public ArrayList<Node>getResultList() {
 		return this.result;
 	}
 	public int getMinDistance() {
 		return this.minDistanceResult;
 	}
+	
 	
 	public DijkstraAlgorithm(Node startingNode, Node finalNode, Graph graph) {
 		this.startingNode = startingNode;
@@ -48,7 +47,6 @@ public class DijkstraAlgorithm {
 	private void initializeDijkstra() {
 		distance = new TreeMap<>();
 		result = new ArrayList<>();
-		founddExactPathAlready = false;
 		
 		resultGraph = new Graph();
 		for (Node n : graph.getAllNodes()) {
@@ -65,8 +63,9 @@ public class DijkstraAlgorithm {
 		else
 		{
 			buildSpanningTree();
-			minDistanceResult = distance.get(finalNode);
-			recursivPathFinder(startingNode, finalNode, new ArrayList<Node>());
+			minDistanceResult = distance.get(finalNode);			
+			System.out.println("FInd Path:");
+			recursivPathFinder(resultGraph.getNode(startingNode.getLabel()), resultGraph.getNode(finalNode.getLabel()), new ArrayList<Node>());
 		}
 	}
 	
@@ -76,11 +75,7 @@ public class DijkstraAlgorithm {
 			Edge minEdge = minOpenEdge();
 			//weight in spanning tree doens`t mind -> 1 for easier implementation of findPath
 			resultGraph.addEdge(minEdge.getStart().getLabel(), minEdge.getAim().getLabel(), 1); 	
-			
-			//Test:
-			System.out.println("MIn Edhe goes from " + minEdge.getStart().getLabel() + "to " + minEdge.getAim().getLabel() + "with weight: " + minEdge.getWeight());
-			//Test ende
-			
+			System.out.println("min Edge is: " + minEdge.getStart().getLabel() + ";" + minEdge.getAim().getLabel());
 		}while (!distance.containsKey(finalNode));
 	}
 	
@@ -92,7 +87,6 @@ public class DijkstraAlgorithm {
 		int actualDistancefromStart = 0;
 		
 		for (Node n : distance.keySet()) {
-			System.out.println("actual node is " + n.getLabel());
 			for (Node neigh : graph.getNeighbours(n)) {
 				actualEdgeValue= graph.getEdgeWeight(n, neigh);
 				if (actualEdgeValue != 0 && (distance.containsKey(n) && !distance.containsKey(neigh))) {
@@ -109,43 +103,32 @@ public class DijkstraAlgorithm {
 		return minEdge;							
 	}
 	
+	
 	@SuppressWarnings("unchecked")
 	private void recursivPathFinder(Node node, Node finalNode, ArrayList<Node> resultTemp) {
-		if (!founddExactPathAlready){
-			resultTemp.add(node);
 
-			if (resultGraph.checkEdges(node, finalNode)(node, finalNode) == 1) {
-				resultTemp.add(finalNode);
-				this.result = resultTemp;
-				founddExactPathAlready = true;
-			} else {
-				for (Node neigh : resultGraph.getNeighbours(node)) {
-					ArrayList<Node> CopyOfResult;
-					try {
-						CopyOfResult = (ArrayList<Node>) resultTemp.clone();
-					}
-					catch (ClassCastException e) {
-						throw new ClassCastException("ResultTemp has to be an ArrayList<Integer>");
-					}
-					recursivPathFinder(neigh, finalNode, CopyOfResult);
+		resultTemp.add(node);
+		
+		if (node == finalNode) {
+			this.result = resultTemp;
+			return;
+		}
+
+		for (Node neigh : resultGraph.getNeighbours(node)) {
+			if (!resultTemp.contains(neigh)) {
+				
+				ArrayList<Node> CopyOfResult;
+				try {
+					CopyOfResult = (ArrayList<Node>) resultTemp.clone();
 				}
-
-			
-			
-//else {
-//				
-//				for (resultGraph.getNeighbours(node)) {
-//					ArrayList<Integer> CopyOfResult;
-//					try {
-//						CopyOfResult = (ArrayList<Integer>) resultTemp.clone();
-//					}
-//					catch (ClassCastException e) {
-//						throw new ClassCastException("ResultTemp has to be an ArrayList<Integer>");
-//					}
-//					recursivPathFinder(i, finalNode, CopyOfResult);
-//				}
-//			}
-//		}
-	}
+				catch (ClassCastException e) {
+					throw new ClassCastException("ResultTemp has to be an ArrayList<Integer>");
+				}
+				recursivPathFinder(neigh, finalNode, CopyOfResult);
+			}
+		}
+		
+		
+	}	
 	
 }
