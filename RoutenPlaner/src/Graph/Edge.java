@@ -4,29 +4,29 @@ public class Edge {
 
 	private Node start;
 	private Node aim;
-	private int weight;
+	private double weight;
 
-	public Edge(Node s, Node a, int w) {
+	public Edge(Node start, Node aim) {
 
-		start = s;
-		aim = a;
-		weight = w;
+		this.start = start;
+		this.aim = aim;
+		this.weight = start.getDistance(aim);
 
 	}
 
-	public int getWeight() {
-		int x = this.weight;
-		return x;
+	public double getWeight() {
+		double weight = this.weight;
+		return weight;
 	}
 
 	public Node getAim() {
-		Node n = this.aim;
-		return n;
+		Node aim = this.aim;
+		return aim;
 	}
 
 	public Node getStart() {
-		Node n = this.start;
-		return n;
+		Node start = this.start;
+		return start;
 	}
 
 }

@@ -1,0 +1,14 @@
+package Graph;
+
+public class MainClass {
+	
+public static void main(String[] args) {
+		
+		Node london = new Node("n1", 1, -0.118092, 51.509865);
+		Node berlin = new Node("n2", 2, ‎13.409779, ‎52.520645);
+		Edge e = new Edge(london, berlin);
+		System.out.println(e.getWeight());
+
+	}
+
+}

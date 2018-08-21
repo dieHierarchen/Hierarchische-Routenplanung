@@ -1,19 +1,33 @@
 package Graph;
 
 public class MainClass {
-	public static void main (String[] Args) {
-		Graph g1 = new Graph();
-		g1.addNode("London");
-		g1.addNode("Penis");
-		g1.addNode("Paris");
-		g1.addNode("Kobold");
-		g1.addNode("Goosheim");
-		g1.addEdge("Goosheim", "London", 12);
-		g1.addEdge("Penis", "Kobold", 123);
-		g1.addEdge("Paris", "Penis", 1);
-		g1.addEdge("Goosheim", "Penis", 12);
-		Node tmp = g1.getNode("Paris");
-		g1.getNeighbours(tmp);
-
+	
+public static void main(String[] args) {
+		
+		Graph g = new Graph();
+		g.addNode("London", 1, -0.118092, 51.509865);
+		g.addNode("Fernsehturm", 2, 13.409779, 52.520645);
+		g.addNode("Big Ben", 3, -0.116773, 51.510357);
+		g.addNode("Goosheim", 4, 8.752810, 48.135670);
+		g.addNode("Stuttgart", 5, 9.182932, 48.775845);
+		g.addEdge(1, 2);
+		g.addEdge(4, 5);
+		g.addEdge(1, 5);
+		g.addEdge(2, 3);
+		g.addEdge(1, 4);
+		g.printAllNeighbours(1);
+		g.printAllNeighbours(2);
+//		System.out.println(g.getEdgeWeight(1, 2));
+//		System.out.println(g.getEdgeWeight(4, 5));
+//		System.out.println(g.getEdgeWeight(2, 3));
+		g.deleteEdge(1, 2);
+		System.out.println("Danach");
+		g.printAllNeighbours(1);
+		g.printAllNeighbours(2);
+		System.out.println("Danach");
+		g.deleteNode(1);
+		g.deleteNode(2);
+		g.printAllNeighbours(4);
 	}
+
 }

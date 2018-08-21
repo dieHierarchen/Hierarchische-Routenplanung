@@ -1,0 +1,15 @@
+package Graph;
+
+public class MainClass {
+	
+public static void main(String[] args) {
+		
+		Graph g = new Graph();
+		g.addNode("n1", 1, -0.118092, 51.509865);
+		g.addNode("n2", 2, 13.409779, 52.520645);
+		g.addEdge(1, 2);
+		g.addEdge(2, 2);
+		System.out.println(g.getEdgeWeight(1, 2));
+	}
+
+}

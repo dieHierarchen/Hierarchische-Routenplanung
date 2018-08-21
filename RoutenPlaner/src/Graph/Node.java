@@ -6,11 +6,17 @@ import java.util.NoSuchElementException;
 public class Node implements Comparable<Node>{
 
 	private String label;
+	private int id;
+	private double lon;
+	private double lat;
 	private ArrayList<Edge> adjazenzList;
 
-	public Node(String s) {
+	public Node(String label, int id, double lon, double lat) {
 
-		label = s;
+		this.label = label;
+		this.id = id;
+		this.lon = lon;
+		this.lat = lat;
 		adjazenzList = new ArrayList<Edge>();
 	}
 
@@ -65,6 +71,37 @@ public class Node implements Comparable<Node>{
 			targetNode.removeEdge(currentEdge);
 		}
 	}
+	
+	/* Gibt Liste aller Nachbarn zurück */
+
+	public ArrayList<Node> getNeighbours()
+	{
+		ArrayList<Node> allNeighbours = new ArrayList<Node>();
+		Iterator<Edge> i = this.getAdjazenzList().iterator();
+		while(i.hasNext())
+		{
+			allNeighbours.add(i.next().getAim());
+		}
+
+		return allNeighbours;
+	}
+	
+	/* Berechnet Distanz zu anderem Knoten in Kilometern */
+	
+	public double getDistance(Node aim)
+	{
+		final int R = 6371;
+		double distanceLat = Math.toRadians(aim.getLat() - this.getLat());
+		double distanceLon = Math.toRadians(aim.getLon() - this.getLon());
+		double x = Math.sin(distanceLat / 2) * Math.sin(distanceLat / 2)
+				   + Math.cos(Math.toRadians(this.getLat())) * Math.cos(Math.toRadians(aim.getLat()))
+				   * Math.sin(distanceLon / 2) * Math.sin(distanceLon / 2);
+		double y = 2 * Math.atan2(Math.sqrt(x), Math.sqrt(1 - x));
+		double distance = R * y;
+		
+		return distance;
+		
+	}
 
 	public ArrayList<Edge> getAllEdges(Node n) {
 		return n.adjazenzList;
@@ -89,5 +126,29 @@ public class Node implements Comparable<Node>{
 	@Override
 	public int compareTo(Node o) {
 		return this.getLabel().compareTo(o.getLabel());
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public double getLon() {
+		return lon;
+	}
+
+	public void setLon(double lon) {
+		this.lon = lon;
+	}
+
+	public double getLat() {
+		return lat;
+	}
+
+	public void setLat(double lat) {
+		this.lat = lat;
 	}
 }
