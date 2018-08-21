@@ -55,7 +55,7 @@ public class PictureFrame extends JPanel {
 			roadDescr = roadDescr.concat("Your passing " + current.getLabel() + "\n");
 			predNode = current;
 		}
-		roadDescr = roadDescr.concat("Reaching your destination " + predNode.getLabel() + " after " + minDistance + "km");
+		roadDescr = roadDescr.concat("Reaching your destination " + predNode.getLabel()) + " after " + minDistance + "km");
 		
 //		//test
 //		//coord. southesPoint Germany:

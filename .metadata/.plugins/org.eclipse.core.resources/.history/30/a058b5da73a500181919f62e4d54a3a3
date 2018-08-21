@@ -32,7 +32,7 @@ public class LoadingScreenWorker extends SwingWorker<Integer, Integer>{
 				testGraph.addNode("6", 6, 8.415789, 50.6);
 				testGraph.addNode("5", 5, 10.0, 50.6);
 				
-				testGraph.addNode("8", 8, 10.178306,47.270111);
+				testGraph.addNode("8", 8, 10.178306,1);
 				testGraph.addNode("10", 10, 13, 55.057728);
 				testGraph.addNode("20", 20, 10.178306, 1);
 						
