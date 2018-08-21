@@ -20,45 +20,41 @@ public class UnitTestDijkstra {
 	@Before
 	public void setpUp() {
 		
+		//setting up a test graph
 		testGraph = new Graph();
-		testGraph.addNode("1");
-		testGraph.addNode("2");
-		testGraph.addNode("3");
-		testGraph.addNode("4");
-		testGraph.addNode("5");
-		testGraph.addNode("6");
-		testGraph.addNode("7");
-		testGraph.addNode("8");
-		testGraph.addNode("9");
 		
-		//adding edges:
+		testGraph = new Graph();
+		testGraph.addNode("1", 1, 8.415789, 55.057728);
+		testGraph.addNode("2", 2, 8.415789, 54.456776);
+		testGraph.addNode("3", 3, 8.415789, 51.456776);
+		testGraph.addNode("6", 6, 8.415789, 50.6);
+		testGraph.addNode("5", 5, 8.415789, 50.8);
 		
-		testGraph.addEdge("1", "3", 5);
-		testGraph.addEdge("1", "2", 6);
-		testGraph.addEdge("3", "4", 7);
-		testGraph.addEdge("2", "4", 3);
-		testGraph.addEdge("2", "8", 25);
-		testGraph.addEdge("2", "5", 10);
-		testGraph.addEdge("4", "7", 4);
-		testGraph.addEdge("5", "9", 3);
-		testGraph.addEdge("7", "8", 8);
-		testGraph.addEdge("8", "9", 3);
+		testGraph.addNode("8", 8, 10.178306,1);
+		testGraph.addNode("10", 10, 8.415789, 53.0);
+		testGraph.addNode("20", 20, 10.178306, 1);
+				
+//		//adding edges:
+				
+		testGraph.addEdge(1,2);
+		testGraph.addEdge(2,3);
+		testGraph.addEdge(3,6);
+		testGraph.addEdge(6,5);
+		testGraph.addEdge(1,8);
+		testGraph.addEdge(8,5);
 		
-
+		testGraph.addEdge(1,10);
+		testGraph.addEdge(3,20);
+		
 		
 		//calculate shortest way from node 1 to node 8:
-		Node start = testGraph.getNode("1");
-		Node aim = testGraph.getNode("8");
+		Node start = testGraph.getNode(1);
+		Node aim = testGraph.getNode(5);
 		DijkstraAlgo = new DijkstraAlgorithm(start, aim, testGraph);
 		DijkstraAlgo.startAlgorithm();
 		
 	}
 	
-	@Test
-	public void AssertShortestDistance() {
-		int shortestDistance = DijkstraAlgo.getMinDistance();
-		Assert.assertTrue(shortestDistance == 21);
-	}
 	
 	@Test
 	public void AssertCorrectPath() {
@@ -68,18 +64,10 @@ public class UnitTestDijkstra {
 		//Assert:
 		Assert.assertTrue(result.get(0).getLabel() == "1");
 		Assert.assertTrue(result.get(1).getLabel() == "2");
-		Assert.assertTrue(result.get(2).getLabel() == "4");
-		Assert.assertTrue(result.get(3).getLabel() == "7");
-		Assert.assertTrue(result.get(4).getLabel() == "8");
+		Assert.assertTrue(result.get(2).getLabel() == "3");
+		Assert.assertTrue(result.get(3).getLabel() == "6");
+		Assert.assertTrue(result.get(4).getLabel() == "5");
 	}
-	
-	@Test
-	public void AssertGraphTest() {
-		Node start = testGraph.getNode("2");
-		Node aim = testGraph.getNode("8");
-		Node noEdge = testGraph.getNode("6");
-		Assert.assertTrue(testGraph.getEdgeWeight(start, aim) == 25);
-		Assert.assertTrue(testGraph.getEdgeWeight(noEdge, aim) == -1);
-	}
+
 	
 }
