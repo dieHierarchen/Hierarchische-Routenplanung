@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-{}
-=======
-[[{"location":"E:\\Software Dev\\Repositories\\Studium\\Hierarchische Routenplanung (git repo)\\RoutenPlaner","type":"PROJECT","hints":{"PROJECT_NAME":"RoutenPlaner"}},"ABSENT"],[{"location":"C:\\Program Files\\Java\\jdk1.8.0_131","type":"JRE","hints":{"EXECUTION_ENVIRONMENT":"JavaSE-1.8"}},"jre:jre:1.8.0"]]
->>>>>>> 4df9ed0e3495d5e48325262d76c0393d794311b7
+[[{"location":"C:\\Users\\Julius\\Documents\\RoutenPlaner\\RoutenPlanerNeu\\RoutenPlaner","type":"PROJECT","hints":{"PROJECT_NAME":"RoutenPlaner"}},"ABSENT"],[{"location":"C:\\Users\\Julius\\.p2\\pool\\plugins\\org.junit_4.12.0.v201504281640\\junit.jar","type":"JAR","hints":{}},"ABSENT"],[{"location":"C:\\Program Files\\Java\\jre1.8.0_151","type":"JRE","hints":{"EXECUTION_ENVIRONMENT":"JavaSE-1.8"}},"jre:jre:1.8.0"]]

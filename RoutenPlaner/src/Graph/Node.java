@@ -20,26 +20,25 @@ public class Node implements Comparable<Node>{
 		adjazenzList = new ArrayList<Edge>();
 	}
 
-	/* Fügt Knoten eine Kante hinzu */
+	
+	/* Adds edge to the current node */
 
 	public void addEdge(Edge e) throws IllegalArgumentException {
 
 		if (adjazenzList.contains(e)) {
 			throw new IllegalArgumentException("The edge is already existing");
 		}
-
 		else {
-
 			adjazenzList.add(e);
 		}
 	}
+	
 
-	/* Löscht Kante aus Adjazenzliste eines Knotens */
+	/* Deletes edge from adjacencylist of the current node */
 
 	public void removeEdge(Edge e) throws NoSuchElementException {
 
 		if (adjazenzList.contains(e)) {
-
 			adjazenzList.remove(e);
 			Node tmp = e.getAim();
 			Iterator<Edge> i = tmp.adjazenzList.iterator();
@@ -47,19 +46,16 @@ public class Node implements Comparable<Node>{
 				if (i.next().getAim() == e.getStart()) {
 					i.remove();
 				}
-
 			}
 		}
-
-		else
-
-		{
-			throw new NoSuchElementException("Kante existiert nicht");
+		else{
+			throw new NoSuchElementException("Choosen edge is not existing");
 		}
 
 	}
 
-	/* Löscht sämtliche Kanten von und zu dem Zielknoten */
+	
+	/* Deletes every edge with the choosen node in the graph */
 
 	public void deleteAllEdges(Node n) {
 		Edge currentEdge;
@@ -72,7 +68,8 @@ public class Node implements Comparable<Node>{
 		}
 	}
 	
-	/* Gibt Liste aller Nachbarn zurück */
+	
+	/* Returns list of all neighbours */
 
 	public ArrayList<Node> getNeighbours()
 	{
@@ -86,7 +83,8 @@ public class Node implements Comparable<Node>{
 		return allNeighbours;
 	}
 	
-	/* Berechnet Distanz zu anderem Knoten in Kilometern */
+	
+	/* Calculates weight of the edge between nodes in kilometers */
 	
 	public double getDistance(Node aim)
 	{
@@ -101,6 +99,14 @@ public class Node implements Comparable<Node>{
 		
 		return distance;
 		
+	}
+	
+	
+	/* Compares two nodes with each other */ 
+	
+	@Override
+	public int compareTo(Node o) {
+		return this.getLabel().compareTo(o.getLabel());
 	}
 
 	public ArrayList<Edge> getAllEdges(Node n) {
@@ -121,11 +127,6 @@ public class Node implements Comparable<Node>{
 
 	public void setAdjazenzList(ArrayList<Edge> adjazenzList) {
 		this.adjazenzList = adjazenzList;
-	}
-
-	@Override
-	public int compareTo(Node o) {
-		return this.getLabel().compareTo(o.getLabel());
 	}
 
 	public int getId() {

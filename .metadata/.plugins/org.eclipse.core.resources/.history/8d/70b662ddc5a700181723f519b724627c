@@ -1,0 +1,110 @@
+package Logic;
+
+import java.util.*;
+import java.util.Map.Entry;
+
+import Graph.Edge;
+import Graph.Graph;
+import Graph.Node;
+
+public class FordAlgorithm {
+
+	
+	public HashMap<Node, Node> parent;
+	public ArrayList<Node> allNodes;
+	public ArrayList<Edge> allEdges;
+	public ArrayList<Node> nodeSequence;
+	public Graph g;
+	public Node aim;
+	public Node source;
+	public double distance[];
+
+	
+	public FordAlgorithm(Graph g, Node aim, Node source) {
+
+		allNodes = g.getAllNodes();
+		allEdges = g.getAllEdges();
+		distance = new double[allNodes.size()];
+		nodeSequence = new ArrayList<Node>();
+		parent = new HashMap<Node, Node>();
+		this.g = g;
+		this.aim = aim;
+		this.source = source;
+		fordHash(this.g, this.source);
+	}
+
+	/* Performs Ford-Algorithm with the given data */
+	
+	public void fordHash(Graph g, Node source)
+	{
+
+		/* Numbers the nodes to initialize adjacency-matrix */
+
+		HashMap<Integer, Node> numberingMap = new HashMap<Integer, Node>();
+		Iterator<Node> n = allNodes.iterator();
+		int counter  = 0;
+		while(n.hasNext())
+		{
+			numberingMap.put(counter, n.next());
+			counter++;
+		}
+
+		
+		
+		/* Initializes the adjacency-matrix */
+
+		for(int i = 0; i<allNodes.size();i++)
+		{
+			if(numberingMap.get(i) != source)
+				distance[i] = Double.MAX_VALUE;
+			else {
+				distance[i]=0;
+			}
+		}
+
+		
+		/* Iterates over all nodes and edges to find the shortest path between every node-pair */
+
+		for(int i=1;i<allNodes.size();i++){
+			
+			for(int j=0; j<allEdges.size();j++){
+				Node src = allEdges.get(j).getStart();
+				Node dest = allEdges.get(j).getAim();
+				double weight = allEdges.get(j).getWeight();
+				if(distance[allNodes.indexOf(src)]!=Double.MAX_VALUE && distance[allNodes.indexOf(src)]+weight<distance[allNodes.indexOf(dest)]){
+					distance[allNodes.indexOf(dest)]=distance[allNodes.indexOf(src)]+weight;
+					parent.put(dest, src);
+				}
+			}
+		}
+
+		
+		/* Creates the list with the shortest path between source and aim */
+		getPredecessor(this.aim);
+		Collections.reverse(nodeSequence);
+		nodeSequence.add(aim);
+		Collections.reverse(nodeSequence);
+	}
+
+	
+	/* Finds for every node in the shortest path the predecessor and adds it to the result nodelist */
+	
+	public void getPredecessor(Node current){
+		Node predecessor = parent.get(current);
+		nodeSequence.add(predecessor);
+		if(predecessor.getId() != source.getId()){
+			getPredecessor(predecessor);
+		}
+	}
+
+	
+	public ArrayList<Node> getPath(){
+		return nodeSequence;	
+	}
+
+	
+	public double[] getAllDistances(){
+		return distance;
+	}
+
+}
