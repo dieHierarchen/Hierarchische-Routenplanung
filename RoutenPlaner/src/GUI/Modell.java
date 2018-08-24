@@ -12,7 +12,7 @@ import Graph.Node;
 
 public class Modell extends Observable{
 	private ArrayList<Node> resultListNodes;		
-	private int minDistance;
+	private double minDistance;
 	
 	private Graph graph;							
 	
@@ -44,7 +44,7 @@ public class Modell extends Observable{
 		return this.timeLastedForCalc;
 	}
 	
-	public void setResults(int minDistance, ArrayList<Node> resultNodes, double timeLastedForCalc) {
+	public void setResults(double minDistance, ArrayList<Node> resultNodes, double timeLastedForCalc) {
 		this.minDistance = minDistance;
 		this.resultListNodes = resultNodes;
 		this.timeLastedForCalc = timeLastedForCalc;
@@ -52,7 +52,7 @@ public class Modell extends Observable{
 		notifyObservers(2); 						//Event 2 wird gefeuert
 	}
 	
-	public int getminDist() {
+	public double getminDist() {
 		return this.minDistance;
 	}
 	

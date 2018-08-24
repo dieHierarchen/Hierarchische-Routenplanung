@@ -27,7 +27,7 @@ public class MainWindow extends JFrame{
 	
 	public void setComboBoxes(String[] destinations, String[] Algorithms) {
 		
-		cbStartPoint.setModel(new DefaultComboBoxModel<String>(destinations));				//später gegen Knoten Klasse von Julius tauschen
+		cbStartPoint.setModel(new DefaultComboBoxModel<String>(destinations));				//spï¿½ter gegen Knoten Klasse von Julius tauschen
 		cbDestination.setModel(new DefaultComboBoxModel<String>(destinations));	
 		cbAlgorithm.setModel(new DefaultComboBoxModel<String>(Algorithms)); 
 	}
@@ -36,7 +36,7 @@ public class MainWindow extends JFrame{
 	private JTextArea textArea;
 	private JTextField  TimeNeeded;
 	
-	public void displayResults(ArrayList<Node> resultList, int minDistance, double timeNeedForCalc) {								//später gegen Knoten Klasse tauschen.
+	public void displayResults(ArrayList<Node> resultList, double minDistance, double timeNeedForCalc) {								//spï¿½ter gegen Knoten Klasse tauschen.
 		String resultDescription = DrawCanvas.DrawResultRoute(resultList, minDistance);
 		textArea.setText(resultDescription);
 		this.TimeNeeded.setText(timeNeedForCalc + " Seconds");

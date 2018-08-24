@@ -4,10 +4,13 @@
 
 package GUI;
 
+import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.SwingWorker;
 import javax.xml.bind.TypeConstraintException;
+
+import Graph.Node;
 
 public class Presenter implements Observer{
 	
@@ -27,7 +30,7 @@ public class Presenter implements Observer{
 	}
 
 	public void startApplication() throws InterruptedException {
-		//Wenn Work startet öffne LoadingScreen
+		//Wenn Work startet ï¿½ffne LoadingScreen
 		loadingScreen.setVisible(true);
 		loadingWorker.execute();
 	}
@@ -68,10 +71,33 @@ public class Presenter implements Observer{
 		System.out.printf("StartPoint is: %s; Destination is %s, Algorithm is: %s \n", start, destination, Algorithm);
 		//test end
 		
-		//set details like start and destination:
-		modell.setStartNode(modell.getHighWayGraph().getNode(start));
-		modell.setDestiNode(modell.getHighWayGraph().getNode(destination));
-			
+		//get and set start node:
+		Node startNode = null;
+		
+		Iterator<Node> startNodeIt = modell.getHighWayGraph().getAllNodes().iterator();
+		while (startNodeIt.hasNext()) {
+			Node compare = startNodeIt.next();
+			if (compare.getLabel() == start) {
+				startNode = compare;
+				break;
+			}
+		}
+		modell.setStartNode(startNode);
+		
+		//get and set destination node:
+		Node destiNode = null;
+		
+		Iterator<Node> destiNodeIt = modell.getHighWayGraph().getAllNodes().iterator();
+		while (destiNodeIt.hasNext()) {
+			Node compareD = destiNodeIt.next();
+			if (compareD.getLabel() == destination) {
+				destiNode = compareD;
+				break;
+			}
+		}
+		modell.setDestiNode(destiNode);
+		
+		//start Worker	
 		if (algoWorker.getState() == SwingWorker.StateValue.PENDING ||
 				algoWorker.getState() == SwingWorker.StateValue.DONE) {
 			algoWorker = new AlgorithmWorker(modell, Algorithm);

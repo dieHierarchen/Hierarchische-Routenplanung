@@ -17,7 +17,6 @@
 <fullyQualifiedTypeName name="javax.swing.JScrollPane"/>
 <fullyQualifiedTypeName name="javax.swing.JButton"/>
 <fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
-<fullyQualifiedTypeName name="GUI.Presenter"/>
 <fullyQualifiedTypeName name="javax.xml.soap.Node"/>
 <fullyQualifiedTypeName name="java.lang.String"/>
 <fullyQualifiedTypeName name="GUI.AlgorithmWorker"/>
@@ -41,12 +40,18 @@
 <fullyQualifiedTypeName name="GUI.MainWindow"/>
 <fullyQualifiedTypeName name="Graph.Edge"/>
 <fullyQualifiedTypeName name="java.lang.Comparable"/>
-<fullyQualifiedTypeName name="java.lang.System"/>
-<fullyQualifiedTypeName name="Graph.Node"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="Graph.Graph"/>
 <fullyQualifiedTypeName name="java.lang.Integer"/>
 <fullyQualifiedTypeName name="GUI.LoadingScreenWorker"/>
 <fullyQualifiedTypeName name="java.util.Random"/>
+<<<<<<< HEAD
 <fullyQualifiedTypeName name="java.lang.Math"/>
+=======
+<fullyQualifiedTypeName name="java.util.Iterator"/>
+<fullyQualifiedTypeName name="Graph.Node"/>
+<fullyQualifiedTypeName name="java.lang.Double"/>
+<fullyQualifiedTypeName name="GUI.Presenter"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+>>>>>>> 4df9ed0e3495d5e48325262d76c0393d794311b7
 </qualifiedTypeNameHistroy>

@@ -24,15 +24,15 @@ public class DijkstraAlgorithm {
 	private Graph graph;
 	private Graph resultGraph;
 	
-	private TreeMap<Node, Integer> distance;
+	private TreeMap<Node, Double> distance;
 	
 	private ArrayList<Node> result;
-	private int minDistanceResult = 0;
+	private double minDistanceResult = 0;
 		
 	public ArrayList<Node>getResultList() {
 		return this.result;
 	}
-	public int getMinDistance() {
+	public double getMinDistance() {
 		return this.minDistanceResult;
 	}
 	
@@ -50,7 +50,7 @@ public class DijkstraAlgorithm {
 		
 		resultGraph = new Graph();
 		for (Node n : graph.getAllNodes()) {
-			resultGraph.addNode(n.getLabel());
+			resultGraph.addNode(n.getLabel(), n.getId(), n.getLon(), n.getLat());
 		}
 		
 	}
@@ -64,34 +64,47 @@ public class DijkstraAlgorithm {
 		{
 			buildSpanningTree();
 			minDistanceResult = distance.get(finalNode);			
-			recursivPathFinder(resultGraph.getNode(startingNode.getLabel()), resultGraph.getNode(finalNode.getLabel()), new ArrayList<Node>());
+			recursivPathFinder(resultGraph.getNode(startingNode.getId()), resultGraph.getNode(finalNode.getId()), new ArrayList<Node>());
 		}
 	}
 	
 	private void buildSpanningTree() {
-		distance.put(startingNode, 0);
+		distance.put(startingNode, 0.0);
 		do {
 			Edge minEdge = minOpenEdge();
+			//
+			System.out.println("");
+			//
+
 			//weight in spanning tree doens`t mind -> 1 for easier implementation of findPath
-			resultGraph.addEdge(minEdge.getStart().getLabel(), minEdge.getAim().getLabel(), 1); 	
+			resultGraph.addEdge(minEdge.getStart().getId(), minEdge.getAim().getId()); 	
 		}while (!distance.containsKey(finalNode));
 	}
 	
 	private Edge minOpenEdge() {
 		Edge minEdge = null;	//initial 
-		int minValue = 0;		//initial
+		double minValue = 0.0;		//initial
 		
-		int actualEdgeValue = 0;
-		int actualDistancefromStart = 0;
+		double actualEdgeValue = 0.0;
+		double actualDistancefromStart = 0.0;
 		
 		for (Node n : distance.keySet()) {
-			for (Node neigh : graph.getNeighbours(n)) {
-				actualEdgeValue= graph.getEdgeWeight(n, neigh);
+			for (Node neigh : n.getNeighbours()) {
+				actualEdgeValue= graph.getEdgeWeight(n.getId(), neigh.getId());
+				//
+				System.out.println("Edge from " + n.getId() + "and " + neigh.getId() + "with Weight: " + actualEdgeValue);
+				//
 				if (actualEdgeValue != 0 && (distance.containsKey(n) && !distance.containsKey(neigh))) {
 					actualDistancefromStart = actualEdgeValue + distance.get(n);
+					//
+					System.out.println("actualDistFromStart: " + actualDistancefromStart);
+					//
 					if (minEdge == null | actualDistancefromStart < minValue) {
-						minEdge = new Edge(n, neigh, actualEdgeValue);
+						minEdge = new Edge(n, neigh);
 						minValue = actualDistancefromStart;
+						//
+						System.out.println("Take Edge " + n.getId() + "to " + neigh.getId());
+						//
 					}
 				}
 			}
@@ -112,7 +125,7 @@ public class DijkstraAlgorithm {
 			return;
 		}
 
-		for (Node neigh : resultGraph.getNeighbours(node)) {
+		for (Node neigh : node.getNeighbours()) {
 			if (!resultTemp.contains(neigh)) {
 				
 				ArrayList<Node> CopyOfResult;
