@@ -1,0 +1,79 @@
+package Logic;
+
+import java.util.*;
+
+import Graph.Edge;
+import Graph.Graph;
+import Graph.Node;
+
+public class FordAlgorithm {
+
+	public ArrayList<Node> allNodes;
+	public ArrayList<Edge> allEdges;
+	public ArrayList<Node> nodeSequence;
+	public Graph g;
+	public Node aim;
+	public Node source;
+	public double distance[];
+
+	public FordAlgorithm(Graph g, Node aim, Node source) {
+		allNodes = g.getAllNodes();
+		allEdges = g.getAllEdges();
+		distance = new double[allNodes.size()];
+		this.g = g;
+		this.aim = aim;
+		this.source = source;
+		distance = fordHash(this.g, this.source);
+	}
+
+	public double[] fordHash(Graph g, Node source)
+	{
+
+		/* Numbers the nodes to initialize adjacency-matrix */
+
+		HashMap<Integer, Node> numberingMap = new HashMap<Integer, Node>();
+		Iterator<Node> n = allNodes.iterator();
+		int counter  = 0;
+		while(n.hasNext())
+		{
+			numberingMap.put(counter, n.next());
+			counter++;
+		}
+
+		/* Initializes the adjacency-matrix */
+
+		for(int i = 0; i<allNodes.size();i++)
+		{
+			if(numberingMap.get(i) != source)
+				distance[i] = Double.MAX_VALUE;
+			else {
+				distance[i]=0;
+			}
+		}
+
+		/* Iteriert über alle Knoten und jede Kante, um den kürzesten Weg zwischen Source und Aim zu finden */
+
+		for(int i=1;i<allNodes.size();i++)
+		{
+			for(int j=0; j<allEdges.size();j++)
+			{
+				Node src = allEdges.get(j).getStart();
+				Node dest = allEdges.get(j).getAim();
+				double weight = allEdges.get(j).getWeight();
+				if(distance[allNodes.indexOf(src)]!=Double.MAX_VALUE && distance[allNodes.indexOf(src)]+weight<distance[allNodes.indexOf(dest)])
+				{
+					distance[allNodes.indexOf(dest)]=distance[allNodes.indexOf(src)]+weight;
+				}
+			}
+		}		
+		return distance;
+	}
+
+	public void printAdjacencymatrix()
+	{
+		for(int i=0; i<distance.length; i++) {
+			System.out.println(distance[i]);
+		}
+	}
+
+}

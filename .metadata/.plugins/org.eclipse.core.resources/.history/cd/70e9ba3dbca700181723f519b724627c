@@ -1,0 +1,79 @@
+/**
+ * @author Robin.Schneider
+ */
+
+package UnitTests;
+
+import Logic.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import org.junit.*;
+
+import Graph.Graph;
+import Graph.Node;
+
+public class UnitTestDijkstra {
+	
+	Logic.DijkstraAlgorithm DijkstraAlgo;
+	private Graph testGraph;
+	
+	@Before
+	public void setpUp() {
+		
+		//setting up a test graph
+		testGraph = new Graph();
+		
+		testGraph = new Graph();
+		testGraph.addNode("1", 1, 8.415789, 55.057728);
+		testGraph.addNode("2", 2, 8.415789, 54.456776);
+		testGraph.addNode("3", 3, 8.415789, 51.456776);
+		testGraph.addNode("6", 6, 8.415789, 50.6);
+		testGraph.addNode("5", 5, 8.415789, 50.8);
+		
+		testGraph.addNode("8", 8, 10.178306,1);
+		testGraph.addNode("10", 10, 8.415789, 53.0);
+		testGraph.addNode("20", 20, 10.178306, 1);
+				
+//		//adding edges:
+				
+		testGraph.addEdge(1,2);
+		testGraph.addEdge(2,3);
+		testGraph.addEdge(3,6);
+		testGraph.addEdge(6,5);
+		testGraph.addEdge(1,8);
+		testGraph.addEdge(8,5);
+		
+		testGraph.addEdge(1,10);
+		testGraph.addEdge(3,20);
+		
+		
+		//calculate shortest way from node 1 to node 8:
+		Node start = testGraph.getNode(1);
+		Node aim = testGraph.getNode(5);
+		DijkstraAlgo = new DijkstraAlgorithm(start, aim, testGraph);
+		DijkstraAlgo.startAlgorithm();
+		
+	}
+	
+	
+	@Test
+	public void AssertCorrectPath() {
+		
+		ArrayList<Node> result = DijkstraAlgo.getResultList();
+		Iterator i = result.iterator();
+		while(i.hasNext())
+		{
+			System.out.println(i.next());
+		}
+		
+		//Assert:
+		Assert.assertTrue(result.get(0).getLabel() == "1");
+		Assert.assertTrue(result.get(1).getLabel() == "2");
+		Assert.assertTrue(result.get(2).getLabel() == "3");
+		Assert.assertTrue(result.get(3).getLabel() == "6");
+		Assert.assertTrue(result.get(4).getLabel() == "5");
+	}
+
+	
+}
