@@ -1,8 +1,3 @@
-/**
- *@author Julius Wiegert
- */
-
-
 package Logic;
 
 import java.util.*;

@@ -57,7 +57,6 @@ public class AlgorithmWorker extends SwingWorker<Integer, Integer> {
 			FordAlgorithm fordAlgo = new FordAlgorithm(modell.getHighWayGraph(), modell.getStartNode(), modell.getDestiNode());
 			long endTime1 = System.currentTimeMillis();
 			double diff1 = (endTime1 - startTime) / 1000;
-			Thread.sleep(2000);
 			modell.setResults(100, fordAlgo.getPath(),diff1);
 			
 		case "A* Algorithmus":

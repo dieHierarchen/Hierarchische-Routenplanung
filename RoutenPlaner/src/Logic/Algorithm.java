@@ -1,0 +1,11 @@
+/**
+ * @author Robin Schneider
+ */
+
+
+package Logic;
+
+public interface Algorithm {
+
+	
+}

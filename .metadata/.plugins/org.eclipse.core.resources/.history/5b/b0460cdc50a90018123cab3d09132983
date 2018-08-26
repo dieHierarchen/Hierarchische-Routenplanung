@@ -19,7 +19,7 @@ public class Modell extends Observable{
 	private String[] allNodeNames;
 	
 	private String[] Algorithms = {
-			"Dijkstra",
+			"Dijkstra"
 			"Ford"
 	};
 	
