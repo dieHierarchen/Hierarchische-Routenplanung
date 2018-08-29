@@ -1,0 +1,28 @@
+import org.w3c.dom.Element;
+import org.xml.sax.Attributes;
+import org.xml.sax.helpers.DefaultHandler;
+
+public class Handler extends DefaultHandler {
+	OptimizedXMLCreator xmlCreator = new OptimizedXMLCreator();
+	Element element;
+	
+	public void startDocument() {
+		System.out.println("start");
+	}
+	
+	public void endDocument() {
+		System.out.println("end");
+	}
+	
+	public void startElement(String nameSpaceURI, String localName, String qName, Attributes atts) {
+		
+	}
+	
+	public void endElement(String namespaceUI, String localName, String qName) {
+		System.out.println("<\\" + qName + ">");
+	}
+	
+	public void characters(char[] ch, int start, int length) {
+		
+	}
+}

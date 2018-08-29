@@ -1,0 +1,91 @@
+package Logic;
+
+import Graph.Edge;
+import Graph.Graph;
+import Graph.Node;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.PriorityQueue;
+
+public class AStarAlgorithm {
+	private String startingNode;
+	private String finalNode;
+	private Graph graph;
+	private PriorityQueue<Node> openList = new PriorityQueue<Node>();
+	private List<Node> closedList = new LinkedList<Node>();
+	
+	public AStarAlgorithm(String startingNode, String finalNode, Graph graph) {
+		this.startingNode = startingNode;
+		this.finalNode = finalNode;
+		this.graph = graph;
+	}
+	
+	public void startAlgorithm() {
+		
+	}
+	
+	private double estimateCost(Node node, Node target) {
+		double dx = node.getLon() - target.getLon();
+		double dy = node.getLat() - target.getLat();
+		return Math.sqrt(dx * dx + dy * dy);
+	}
+	
+	private List<Node> reconstructPath(Node node){
+		List<Node> path = new LinkedList<Node>();
+		path.add(node);
+		while (node.getPredecessor() != null) {
+			node = node.getPredecessor();
+			path.add(node);
+		}
+		return path;
+	}
+	
+	private List<Node> search(String from, String to){
+		Node fromNode;
+		Node toNode;
+		for(Node node:graph.getAllNodes()) {
+			if (node.getLabel() == from) {
+				fromNode = node;
+			}
+			if (node.getLabel() == to) {
+				toNode = node;
+			}
+		}
+		openList.offer(fromNode);
+		
+		while(!openList.isEmpty()) {
+			Node node = openList.poll();
+			closedList.add(node);
+			if (node.getLabel() == toNode.getLabel()) {
+				return reconstructPath(node);
+			}
+			for (Edge edge: node.getAdjazenzList()) {
+				Node succ = edge.getAim();
+				if (closedList.contains(succ)){
+					continue;
+				}
+				Edge edgeToSucc;
+				for (Edge e: node.getAdjazenzList()) {
+					if (e.getAim() == succ) {
+						edgeToSucc = e;
+						break;
+					}
+				}
+				double tf = node.getGCost() + edgeToSucc.getWeight() + estimateCost(succ, toNode);
+				if (openList.contains(succ) && tf > succ.getFCost()) {
+					continue;
+				}
+				
+				succ.setPredecessor(node);
+				succ.setGCost(tf);
+				succ.setFCost(node.getGCost() + edgeToSucc.getWeight());
+				if(openList.contains(succ)) {
+					openList.remove(succ);
+				}
+				openList.offer(succ);
+			}
+		}
+		return null;
+	}
+}

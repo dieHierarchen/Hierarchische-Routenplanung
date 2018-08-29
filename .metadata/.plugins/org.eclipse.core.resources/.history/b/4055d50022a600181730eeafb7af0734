@@ -1,0 +1,6 @@
+package Logic;
+
+
+public interface XmlReadyCallback {
+	public Graph readingXmlDone();
+}

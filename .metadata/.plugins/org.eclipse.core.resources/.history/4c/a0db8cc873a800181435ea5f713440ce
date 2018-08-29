@@ -1,0 +1,52 @@
+package Logic;
+
+import java.util.ArrayList;
+
+import javax.xml.namespace.QName;
+
+import org.xml.sax.helpers.AttributesImpl;
+
+import Graph.Graph;
+
+public class XmlEdgeParser extends XmlNodeParser{
+
+	public XmlEdgeParser(Graph graph) {
+		super(graph);
+	}
+	
+	@Override
+	protected ElementContent getElementContent(String qName, AttributesImpl attributes) {
+		return new ElementContent(qName, attributes);
+	}
+	
+	protected class ElementContent extends XmlNodeParser.ElementContent{
+		public ElementContent(String qName, AttributesImpl attributes) {
+			super(qName,attributes);
+		}
+		
+		public void elementIsReady() {
+			long nextId = 0;
+			long prevId = 0;
+			try {
+				if (qName == "way") {
+					for(XmlNodeParser.ElementContent child:children) {
+						if(child.qName == "nd") {
+							for(int i = 0; i < child.attributes.getLength(); i++) {
+								if(child.attributes.getQName(i).contains("ref")) {
+									prevId = nextId;
+									nextId = Long.parseLong(child.attributes.getValue(i));
+									if(prevId != 0 && nextId != 0) {
+										System.out.println(prevId + " -> " + nextId);
+										graph.addEdge(prevId, nextId);
+									}
+								}
+							}
+						}
+					}
+				} 
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}

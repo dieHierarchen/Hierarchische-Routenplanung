@@ -1,0 +1,55 @@
+import java.io.IOException;
+
+import javax.xml.parsers.*;
+
+import org.xml.sax.Attributes;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
+
+
+public class MainClass{
+
+	public static void main(String[] args){
+		String path = "D:/Studium/SoSe18/Prüfung/Programmieren/germany-latest.osm/germany-latest.osm";
+		//path = "D:/Studium/SoSe18/Prüfung/Programmieren/germany-latest.osm/test.osm";
+		
+		SAXParserFactory factory = SAXParserFactory.newInstance();
+		try {
+			SAXParser parser = factory.newSAXParser();
+			parser.parse(new InputSource(path), new DefaultHandler() {
+				public void startDocument() {
+					
+				}
+				
+				public void endDocument() {
+					
+				}
+				
+				public void startElement(String nameSpaceURI, String localName, String qName, Attributes atts) {
+					
+				}
+				
+				public void endElement(String namespaceUI, String localName, String qName) {
+					
+				}
+				
+				public void characters(char[] ch, int start, int length) {
+					
+				}
+			});
+			
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("terminated");
+	}
+
+}
