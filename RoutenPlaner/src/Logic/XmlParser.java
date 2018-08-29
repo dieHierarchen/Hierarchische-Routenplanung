@@ -22,7 +22,7 @@ public class XmlParser {
 	}
 	
 	public void startParsing() {
-		String path = "D:\\Studium\\graph_highway.xml";//"optimizedOnlyMotorways.osm";
+		String path = "ShortedXmlHighwaysOnly.xml";//"optimizedOnlyMotorways.osm";
 		
 		DefaultHandler nodeHandler = new XmlNodeParser(graph);
 		SAXParserFactory nodeFactory = SAXParserFactory.newInstance();
