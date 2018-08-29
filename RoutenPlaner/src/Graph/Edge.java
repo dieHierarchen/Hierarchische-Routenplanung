@@ -4,18 +4,17 @@ public class Edge {
 
 	private Node start;
 	private Node aim;
-	private double weight;
+	private float weight;
 
-	public Edge(Node start, Node aim) {
+	public Edge(Node start, Node aim, float weight) {
 
 		this.start = start;
 		this.aim = aim;
-		this.weight = start.getDistance(aim);
+		this.weight = weight;
 
 	}
 
-	public double getWeight() {
-		double weight = this.weight;
+	public float getWeight() {
 		return weight;
 	}
 

@@ -1,0 +1,124 @@
+/**
+ * @author Robin.Schneider
+ */
+
+package GUI;
+
+import java.util.Iterator;
+import java.util.Observable;
+import java.util.Observer;
+import javax.swing.JOptionPane;
+import javax.swing.SwingWorker;
+import javax.xml.bind.TypeConstraintException;
+
+import Graph.Node;
+
+public class Presenter implements Observer{
+	
+	private Modell modell;
+	private LoadingScreenWorker loadingWorker;
+	private AlgorithmWorker algoWorker;
+	private MainWindow mainWindow;
+	private LoadingAppWindow loadingScreen;
+	
+	public Presenter() {
+		modell = new Modell();
+		modell.addObserver(this);
+		mainWindow = new MainWindow(this);
+		loadingScreen = new LoadingAppWindow();
+		loadingWorker = new LoadingScreenWorker(modell);
+		algoWorker = new AlgorithmWorker(modell, "notSetYet");
+	}
+
+	public void startApplication() throws InterruptedException {
+		//Wenn Work startet �ffne LoadingScreen
+		loadingScreen.setVisible(true);
+		loadingWorker.execute();
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		try {
+			
+			if (!(arg instanceof Integer)) {
+				throw new TypeConstraintException("arg has to be a Integer 1 <= arg <= 2");
+			}
+			
+			int eventHandle = (Integer) arg;
+			
+			if (eventHandle == 1) {
+				startMainApplication();
+			}
+			if (eventHandle == 2) {
+				mainWindow.stopProgressBar();
+				mainWindow.displayResults(modell.getresultList(), modell.getminDist(), modell.getTimeLastetForCalc());
+				System.out.println("Finished Work");
+			}
+		}
+		catch (Exception e) {
+		
+		}
+	}
+	
+	private void startMainApplication() {
+		loadingScreen.setVisible(false);	
+		mainWindow.setComboBoxes(modell.getAllNames(), modell.getAlgorithms());
+		mainWindow.setVisible(true);
+	}
+
+	
+	public void StartCalculation(String start, String destination, String Algorithm) {
+		//Test
+		System.out.printf("StartPoint is: %s; Destination is %s, Algorithm is: %s \n", start, destination, Algorithm);
+		//test end
+		
+		//get and set start node:
+		Node startNode = null;
+		
+		Iterator<Node> startNodeIt = modell.getHighWayGraph().getAllNodes().iterator();
+		while (startNodeIt.hasNext()) {
+			Node compare = startNodeIt.next();
+			if (compare.getLabel() == start) {
+				startNode = compare;
+				break;
+			}
+		}
+		modell.setStartNode(startNode);
+		
+		//get and set destination node:
+		Node destiNode = null;
+		
+		Iterator<Node> destiNodeIt = modell.getHighWayGraph().getAllNodes().iterator();
+		while (destiNodeIt.hasNext()) {
+			Node compareD = destiNodeIt.next();
+			if (compareD.getLabel() == destination) {
+				destiNode = compareD;
+				break;
+			}
+		}
+		modell.setDestiNode(destiNode);
+		
+		//start Worker	
+		if (algoWorker.getState() == SwingWorker.StateValue.PENDING ||
+				algoWorker.getState() == SwingWorker.StateValue.DONE) {
+			algoWorker = new AlgorithmWorker(modell, Algorithm);
+			mainWindow.displayProgressBar();
+			algoWorker.execute();
+			System.out.println("Send Worker to work!");
+		}
+		else {
+			JOptionPane.showMessageDialog(mainWindow, "Is currently running!", "Running", JOptionPane.WARNING_MESSAGE);
+		}
+		
+	}
+	
+	public void searchNode(String Nodename, int StartorDesti) {
+		Node possibleNode = modell.getHighWayGraph().getNode(Nodename);
+		
+		if (possibleNode != null) {
+			
+		}else {
+			JOptionPane.showMessageDialog(mainWindow, "No such City Found!", "Running", JOptionPane.WARNING_MESSAGE);
+		}
+	}
+}

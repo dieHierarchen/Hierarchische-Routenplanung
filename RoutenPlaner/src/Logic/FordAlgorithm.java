@@ -11,7 +11,7 @@ import Graph.Edge;
 import Graph.Graph;
 import Graph.Node;
 
-public class FordAlgorithm {
+public class FordAlgorithm implements ShortestPathAlgorithm{
 
 	
 	public HashMap<Node, Node> parent;
@@ -34,7 +34,6 @@ public class FordAlgorithm {
 		this.g = g;
 		this.aim = aim;
 		this.source = source;
-		fordHash(this.g, this.source);
 	}
 
 	/* Performs Ford-Algorithm with the given data */
@@ -100,15 +99,25 @@ public class FordAlgorithm {
 			getPredecessor(predecessor);
 		}
 	}
-
-	
-	public ArrayList<Node> getPath(){
-		return nodeSequence;	
-	}
-
 	
 	public double[] getAllDistances(){
 		return distance;
+	}
+
+	@Override
+	public void startAlgorithm() {
+		fordHash(this.g, this.source);
+	}
+
+	@Override
+	public ArrayList<Node> getResultList() {
+		return nodeSequence;
+	}
+
+	@Override
+	public double getMinDistance() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

@@ -7,24 +7,23 @@ import java.util.NoSuchElementException;
 
 public class Graph {
 
-	public HashMap<Integer, Node> nodeMap = new HashMap<Integer, Node>();
+	HashMap<String, Node> nodeMap = new HashMap<String, Node>();
 
+	public Graph() {
 
-	/* Adds a new node to the graph */
+	}
 
-	public void addNode(String label, int id, double lon, double lat) throws IllegalArgumentException {
-		if (nodeMap.containsKey(id)) {
-			throw new IllegalArgumentException("The node is already existing");
-		} else {
-			Node n = new Node(label, id, lon, lat);
+	/* Fügt dem Graph einen Knoten hinzu */
+
+	public void addNode(String id, double lon, double lat) {
+		if (!nodeMap.containsKey(id)){
+			Node n = new Node(id, lon, lat);
 			nodeMap.put(id, n);
 		}
 	}
 
-
-	/* Adds a new edge to the graph */
-
-	public void addEdge(Integer start, Integer aim) {
+	/* Fügt dem Graph eine Kante hinzu */
+	public void addEdge(String start, String aim, float weight) {
 		if(nodeMap.containsKey(start) && nodeMap.containsKey(aim))
 		{
 			Node from = nodeMap.get(start);
@@ -33,32 +32,20 @@ public class Graph {
 			{
 				if(!checkEdges(from.getId(), to.getId()))
 				{
-					Edge a = new Edge(from, to);
-					Edge b = new Edge(to, from);
+					Edge a = new Edge(from, to, weight);
+					Edge b = new Edge(to, from, weight);
 					from.addEdge(a);
 					to.addEdge(b);
 				}
-				else {
-					throw new IllegalArgumentException("The edge is already existing");
-				}
 			}
-
-			else {
-				throw new IllegalArgumentException("The choosen nodes cant be equal");
-			}
-		}
-
-		else {
-			throw new NoSuchElementException("The choosen node(s) are not in the graph");
 		}
 	}
 
+	/* Löscht Knoten aus Graph */
 
-	/* Deletes a node from the graph */
+	public void deleteNode(String id) throws NoSuchElementException {
 
-	public void deleteNode(int id) throws NoSuchElementException {
-
-		ArrayList<Integer> toRemove = new ArrayList<Integer>();
+		ArrayList<String> toRemove = new ArrayList<String>();
 
 		if (nodeMap.containsKey(id)) {
 			Node n = nodeMap.get(id);
@@ -68,24 +55,23 @@ public class Graph {
 				toRemove.add(i.next().getAim().getId());
 			}
 
-			for (Integer s : toRemove) {
+			for (String s : toRemove) {
 				deleteEdge(id, s);
 			}
 
 			nodeMap.remove(id);
 
 		} else {
-			throw new NoSuchElementException("The node is not in the graph");
+			throw new NoSuchElementException();
 		}
 
 	}
 
+	/* Löscht Kante aus Graphen */
 
-	/* Deletes a edge from the graph */
-
-	public void deleteEdge(int s, int a) {
+	public void deleteEdge(String s, String a) {
 		if (nodeMap.containsKey(s) && nodeMap.containsKey(a)) {
-
+			
 			Node start = nodeMap.get(s);
 			Node aim = nodeMap.get(a);
 			Iterator<Edge> i = start.getAdjazenzList().iterator();
@@ -105,27 +91,24 @@ public class Graph {
 		}
 
 		else {
-			throw new NoSuchElementException("The choosen node(s) are not in the graph");
+			throw new NoSuchElementException();
 		}
 	}
 
+	/* Gibt einen Knoten des Graphen zurück */
 
-	/* Returns a node from the graph */
-
-	public Node getNode(int id) throws NoSuchElementException {
+	public Node getNode(String id) throws NoSuchElementException {
 		Node n = nodeMap.get(id);
 		if (n == null) {
-			throw new NoSuchElementException("The choosen node is not in the graph");
+			return null;
 		}
-		else {
-			return n;
-		}	
+		return n;
+
 	}
 
+	/* Checkt, ob es bereits eine Kante zwischen zwei Knoten gibt */
 
-	/* Checks, if there already is a edge between two nodes */
-
-	public boolean checkEdges(int start, int dest)
+	public boolean checkEdges(String start, String dest)
 	{
 		Node from = this.nodeMap.get(start);
 		Node to = this.nodeMap.get(dest);
@@ -143,10 +126,9 @@ public class Graph {
 		return existing;
 	}
 
+	/* Gibt Kantenwert zw. den Knoten zurück, oder -1, wenn keine Kante existiert */
 
-	/* Returns edge-weight between two nodes or -1, if there is no edge between them */
-
-	public double getEdgeWeight(int start, int dest)
+	public double getEdgeWeight(String start, String dest)
 	{
 		Node from = this.nodeMap.get(start);
 		Node to = this.nodeMap.get(dest);
@@ -161,27 +143,41 @@ public class Graph {
 		}
 
 		return -1;
+
 	}
 
-
-	/* Returns list of all nodes in the graph */
+	/* Gibt Liste aller Knoten im Graphen zurück */
 
 	public ArrayList<Node> getAllNodes()
 	{
 		ArrayList<Node> allNodes = new ArrayList<Node>();
-		for (Entry<Integer, Node> e : nodeMap.entrySet()){
+		for (Entry e : nodeMap.entrySet()){
 			Node tmp = (Node) e.getValue();
 			allNodes.add(tmp);
 		}
 
 		return allNodes;
 	}
+	
+	/* Returns list of all edges of the graph */
 
+	public ArrayList<Edge> getAllEdges()
+	{
+		ArrayList<Edge> allEdges = new ArrayList<Edge>();
+		for (Entry<String, Node> e : nodeMap.entrySet()) {
+			Node n = (Node) e.getValue();
+			Iterator<Edge> i = n.getAdjazenzList().iterator();
+			while (i.hasNext()) {
+				allEdges.add(i.next());
+			}
+		}
+		return allEdges;
+	}
 
-	/* Prints all nodes and edges on the console - for testing */
+	/* Konsolenausgabe aller Knoten und Kanten - für UnitTest */
 
 	public void printNodesAndEdges() {
-		for (Entry<Integer, Node> e : nodeMap.entrySet()) {
+		for (Entry e : nodeMap.entrySet()) {
 			System.out.println("Aktueller Knoten " + e.getKey() + ": \n");
 			Node n = (Node) e.getValue();
 			Iterator<Edge> i = n.getAdjazenzList().iterator();
@@ -192,36 +188,7 @@ public class Graph {
 		}
 	}
 
-
-	/* Returns list of all edges of the graph */
-
-	public ArrayList<Edge> getAllEdges()
-	{
-		ArrayList<Edge> allEdges = new ArrayList<Edge>();
-		for (Entry<Integer, Node> e : nodeMap.entrySet()) {
-			Node n = (Node) e.getValue();
-			Iterator<Edge> i = n.getAdjazenzList().iterator();
-			while (i.hasNext()) {
-				allEdges.add(i.next());
-			}
-		}
-		return allEdges;
-	}
-
-	/* Prints all edges of the graph - for testing */
-
-	public void printEdgeList()
-	{
-		ArrayList<Edge> allEdges = this.getAllEdges();
-		Iterator<Edge> i = allEdges.iterator();
-		while (i.hasNext()) {
-			Edge tmp = i.next();
-			System.out.println(tmp.getWeight());
-		}
-
-	}
-	
-	/* Prints all nodes of the graph - for testing */
+	/* Konsolenausgabe der Knotenliste - für UnitTest */
 
 	public void printNodeList()
 	{
@@ -234,9 +201,7 @@ public class Graph {
 
 	}
 
-	/* Prints all neighbours of a node of the graph - for testing */
-
-	public void printAllNeighbours(int id)
+	public void printAllNeighbours(String id)
 	{
 		Node n = this.getNode(id);
 		ArrayList<Node> allNeighbours = n.getNeighbours();

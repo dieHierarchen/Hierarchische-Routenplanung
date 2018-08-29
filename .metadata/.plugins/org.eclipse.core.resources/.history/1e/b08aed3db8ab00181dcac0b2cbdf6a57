@@ -1,0 +1,221 @@
+/**
+ * @author Robin.Schneider
+ */
+
+package GUI;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.util.ArrayList;
+import java.util.Random;
+
+import javax.swing.*;
+
+import Graph.Node;
+
+public class MainWindow extends JFrame{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private JComboBox<String> cbStartPoint;
+	private JComboBox<String> cbDestination;
+	private JComboBox<String> cbAlgorithm;
+	
+	public void setComboBoxes(String[] destinations, String[] Algorithms) {
+		
+		cbStartPoint.setModel(new DefaultComboBoxModel<String>(destinations));				//sp�ter gegen Knoten Klasse von Julius tauschen
+		cbDestination.setModel(new DefaultComboBoxModel<String>(destinations));	
+		cbAlgorithm.setModel(new DefaultComboBoxModel<String>(Algorithms)); 
+	}
+	public void setStartComboBox(Node startNode) {
+		cbStartPoint.setSelectedItem(startNode);
+	}
+	public void setDestinationComboBox(Node startNode) {
+		cbStartPoint.setSelectedItem(startNode);
+	}
+	
+	private PictureFrame DrawCanvas;
+	private JTextArea textArea;
+	private JTextField  TimeNeeded;
+	
+	public void displayResults(ArrayList<Node> resultList, double minDistance, double timeNeedForCalc) {								//sp�ter gegen Knoten Klasse tauschen.
+		String resultDescription = DrawCanvas.DrawResultRoute(resultList, minDistance);
+		textArea.setText(resultDescription);
+		this.TimeNeeded.setText(timeNeedForCalc + " Seconds");
+		
+	}
+	
+	private JProgressBar prgBar;
+	public void displayProgressBar() {
+		prgBar.setVisible(true);
+	}
+	public void stopProgressBar() {
+		prgBar.setVisible(false);
+	}
+		
+	private Presenter presenter;
+	
+	private JTextField textStartSearch;
+	private JTextField textDestiSearch;
+	
+	public void resetSearchFields() {
+		textStartSearch.setText("");
+		//textDestiSearch.setText("");
+	}
+	
+	public MainWindow(Presenter presenter) {
+		this.presenter = presenter;
+				
+		initializeWindow();
+		initializeComponents();
+	}
+	
+	private void initializeWindow() {
+		this.setTitle("Hierarchischer Routenplaner");
+		this.setSize(1200, 800);
+		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		this.setResizable(false);
+	}
+	
+	private void initializeComponents() {
+		Container pane = this.getContentPane();
+		pane.setLayout(new BorderLayout());
+		
+		//North:
+		JPanel North = new JPanel();
+		North.setLayout(new FlowLayout(FlowLayout.LEFT));
+		pane.add(BorderLayout.NORTH, North);
+		
+		JLabel laStartP = new JLabel("Select your Start:");
+		Dimension dim = new Dimension(150, 20);
+		North.add(laStartP);
+		cbStartPoint = new JComboBox<String>();
+		cbStartPoint.setPreferredSize(dim);
+		North.add(cbStartPoint);
+		
+		textStartSearch = new JTextField();
+		textStartSearch.setPreferredSize(dim);
+		textStartSearch.addFocusListener(new FocusListener() {
+			
+			@Override
+			public void focusLost(FocusEvent e) {
+				presenter.searchNode(textStartSearch.getText(), 0);			
+			}
+			
+			@Override
+			public void focusGained(FocusEvent e) {
+				// Do Nothing			
+			}
+		});
+		North.add(textStartSearch);
+		
+		JLabel laDest= new JLabel("Select your Destination:");
+		North.add(laDest);
+		cbDestination = new JComboBox<String>();
+		cbDestination.setPreferredSize(dim);
+		North.add(cbDestination);
+		
+		JLabel laAlgo = new JLabel("Select Algorithm to calculate:");
+		North.add(laAlgo);
+		cbAlgorithm = new JComboBox<String>();
+		cbAlgorithm.setPreferredSize(new Dimension(100, 20));
+		North.add(cbAlgorithm);
+		
+		JButton buStart = new JButton("Calculate");
+		buStart.setPreferredSize(new Dimension(100, 20));
+		buStart.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				presenter.StartCalculation((String)cbStartPoint.getSelectedItem(), (String)cbDestination.getSelectedItem(), (String)cbAlgorithm.getSelectedItem());
+			}
+		});
+		North.add(buStart);
+		
+		//Center:
+		JPanel Center = new JPanel();
+		GridLayout CenterGrid = new GridLayout(1,2);
+		Center.setLayout(CenterGrid);
+		pane.add(BorderLayout.CENTER, Center);
+		
+		//inner Box:
+		Box innerBox = Box.createVerticalBox();
+		textArea = new JTextArea();
+		textArea.setEditable(false);
+		textArea.setText("Please Select Your Route");
+		Dimension ScrollPaneDim = new Dimension(585, 500);
+		JScrollPane scrollPane = new JScrollPane(textArea);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setPreferredSize(ScrollPaneDim);
+		innerBox.add(scrollPane);
+		
+		PictureFrame PFcommercial = new PictureFrame(CommercialPath());
+		Dimension TestDim = new Dimension(585, 200);
+		PFcommercial.setPreferredSize(TestDim);
+		innerBox.add(PFcommercial);
+		
+		Center.add(innerBox);
+		//end inner Box
+		
+		DrawCanvas =  new PictureFrame("image/Deutschland.png");
+		Center.add(DrawCanvas);
+		//end Center
+		
+		//South:
+		JPanel South = new JPanel();
+		South.setLayout(new FlowLayout(2));
+		pane.add(BorderLayout.SOUTH, South);
+		
+		JLabel laTimeNeeded = new JLabel("Calculation lasted: ");
+		South.add(laTimeNeeded);
+		
+		TimeNeeded = new JTextField();
+		Dimension Dim2 = new Dimension(100, 20);
+		TimeNeeded.setPreferredSize(Dim2);
+		TimeNeeded.setEditable(false);
+		TimeNeeded.setText("Empty");
+		South.add(TimeNeeded);
+		
+		prgBar = new JProgressBar();
+		prgBar.setIndeterminate(true);
+		prgBar.setPreferredSize(dim);
+		prgBar.setForeground(Color.ORANGE);
+		prgBar.setVisible(false);
+		South.add(prgBar);
+		
+		
+	}
+	
+	private String CommercialPath() {
+		String path = " ";
+		
+		Random random = new Random();
+		int commercialNo = random.nextInt(5);
+		switch(commercialNo) {
+		case 0:
+			path = "image\\Comm_1.jpg";
+			break;
+		case 1:
+			path = "image\\Comm_2.jpg";
+			break;
+		case 2:
+			path = "image\\Comm_3.png";
+			break;	
+		case 3:
+			path = "image\\Comm_4.png";
+			break;
+		case 4:
+			path = "image\\Comm_5.jpg";
+			break;
+		}
+		System.out.println("Comm num is" + commercialNo);
+		return path;
+	}
+	
+}

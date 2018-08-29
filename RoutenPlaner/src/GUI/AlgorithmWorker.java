@@ -4,13 +4,8 @@
 
 package GUI;
 
-import java.util.ArrayList;
-
 import javax.swing.SwingWorker;
-
-import Graph.Node;
-import Logic.DijkstraAlgorithm;
-import Logic.FordAlgorithm;
+import Logic.*;
 
 public class AlgorithmWorker extends SwingWorker<Integer, Integer> {
 
@@ -23,46 +18,28 @@ public class AlgorithmWorker extends SwingWorker<Integer, Integer> {
 	}
 	
 	@Override
-	protected Integer doInBackground() throws Exception {
+	protected Integer doInBackground() throws Exception {		
+
+		ShortestPathAlgorithm shortestPathAlg = null;
 		
-		long startTime = System.currentTimeMillis();
-		
-		System.out.println("Before Switch");
-		
-		
-		switch(algorithm) {
+		switch(algorithm) {	
 		case "Dijkstra" :
-			DijkstraAlgorithm dijkstra = new DijkstraAlgorithm(modell.getStartNode(), modell.getDestiNode(), modell.getHighWayGraph());			//must get startNode and destinationNode
-			dijkstra.startAlgorithm();
-			
-			//test:
-			System.out.println("Dijkstra in work");
-			ArrayList<Node > resultTest = dijkstra.getResultList();
-			System.out.println("Min Distance is: " + dijkstra.getMinDistance());
-			System.out.print("Reihenfolge der Knoten ist: ");
-			for (Node t : resultTest) {
-				System.out.print(t.getLabel() + "; ");
-			}
-			System.out.println("After Switch");
-			Thread.sleep(2000);
-			//test ends here
-			
-			long endTime = System.currentTimeMillis();
-			double diff = (endTime - startTime) / 1000;
-			modell.setResults(dijkstra.getMinDistance(), dijkstra.getResultList(), diff);	
-				
+			shortestPathAlg = new DijkstraAlgorithm(modell.getStartNode(), modell.getDestiNode(), modell.getHighWayGraph());			//must get startNode and destinationNode
 			break;
-			
 		case "Ford" :
-			FordAlgorithm fordAlgo = new FordAlgorithm(modell.getHighWayGraph(), modell.getStartNode(), modell.getDestiNode());
-			long endTime1 = System.currentTimeMillis();
-			double diff1 = (endTime1 - startTime) / 1000;
-			Thread.sleep(2000);
-			modell.setResults(100, fordAlgo.getPath(),diff1);
-			
+			shortestPathAlg = new FordAlgorithm(modell.getHighWayGraph(), modell.getStartNode(), modell.getDestiNode());
+			break;
 		case "A* Algorithmus":
+			shortestPathAlg = new AStarAlgorithm(modell.getStartNode(), modell.getDestiNode(), modell.getHighWayGraph());
 			break;
 		};
+		
+		long startTime = System.currentTimeMillis();	
+		shortestPathAlg.startAlgorithm();
+				
+		long endTime = System.currentTimeMillis();
+		double diff = (endTime - startTime) / 1000;
+		modell.setResults(shortestPathAlg.getMinDistance(), shortestPathAlg.getResultList(), diff);		
 		
 		return null;
 	}

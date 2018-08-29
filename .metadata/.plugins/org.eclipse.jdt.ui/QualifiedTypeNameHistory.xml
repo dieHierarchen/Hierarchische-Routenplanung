@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.util.Iterator"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="Graph.Node"/>
-<fullyQualifiedTypeName name="Graph.Edge"/>
 <fullyQualifiedTypeName name="Logic.FordAlgorithm"/>
+<fullyQualifiedTypeName name="java.lang.Thread"/>
+<fullyQualifiedTypeName name="Logic.ShortestPathAlgorithm"/>
+<fullyQualifiedTypeName name="javax.swing.JDialog"/>
+<fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
+<fullyQualifiedTypeName name="javax.swing.JTextField"/>
+<fullyQualifiedTypeName name="java.awt.Dimension"/>
+<fullyQualifiedTypeName name="java.awt.event.FocusListener"/>
 </qualifiedTypeNameHistroy>

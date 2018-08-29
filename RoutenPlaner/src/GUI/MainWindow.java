@@ -7,6 +7,8 @@ package GUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -31,6 +33,12 @@ public class MainWindow extends JFrame{
 		cbDestination.setModel(new DefaultComboBoxModel<String>(destinations));	
 		cbAlgorithm.setModel(new DefaultComboBoxModel<String>(Algorithms)); 
 	}
+	public void setStartComboBox(Node startNode) {
+		cbStartPoint.setSelectedItem(startNode.getLabel());
+	}
+	public void setDestinationComboBox(Node destiNode) {
+		cbDestination.setSelectedItem(destiNode.getLabel());
+	}
 	
 	private PictureFrame DrawCanvas;
 	private JTextArea textArea;
@@ -52,6 +60,14 @@ public class MainWindow extends JFrame{
 	}
 		
 	private Presenter presenter;
+	
+	private JTextField textStartSearch;
+	private JTextField textDestiSearch;
+	
+	public void resetSearchFields() {
+		textStartSearch.setText("");
+		textDestiSearch.setText("");
+	}
 	
 	public MainWindow(Presenter presenter) {
 		this.presenter = presenter;
@@ -77,11 +93,27 @@ public class MainWindow extends JFrame{
 		pane.add(BorderLayout.NORTH, North);
 		
 		JLabel laStartP = new JLabel("Select your Start:");
-		Dimension dim = new Dimension(170, 20);
+		Dimension dim = new Dimension(150, 20);
 		North.add(laStartP);
 		cbStartPoint = new JComboBox<String>();
 		cbStartPoint.setPreferredSize(dim);
 		North.add(cbStartPoint);
+		
+		textStartSearch = new JTextField();
+		textStartSearch.setPreferredSize(new Dimension(100, 20));
+		textStartSearch.addFocusListener(new FocusListener() {
+			
+			@Override
+			public void focusLost(FocusEvent e) {
+				presenter.searchNode(textStartSearch.getText(), 0);			
+			}
+			
+			@Override
+			public void focusGained(FocusEvent e) {
+				// Do Nothing			
+			}
+		});
+		North.add(textStartSearch);
 		
 		JLabel laDest= new JLabel("Select your Destination:");
 		North.add(laDest);
@@ -89,13 +121,28 @@ public class MainWindow extends JFrame{
 		cbDestination.setPreferredSize(dim);
 		North.add(cbDestination);
 		
+		textDestiSearch = new JTextField();
+		textDestiSearch.setPreferredSize(new Dimension(100, 20));
+		textDestiSearch.addFocusListener(new FocusListener() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				presenter.searchNode(textDestiSearch.getText(), 1);			
+			}
+			
+			@Override
+			public void focusGained(FocusEvent e) {
+				// Do Nothing			
+			}
+		});
+		North.add(textDestiSearch);
+		
 		JLabel laAlgo = new JLabel("Select Algorithm to calculate:");
 		North.add(laAlgo);
 		cbAlgorithm = new JComboBox<String>();
-		cbAlgorithm.setPreferredSize(dim);
+		cbAlgorithm.setPreferredSize(new Dimension(100, 20));
 		North.add(cbAlgorithm);
 		
-		JButton buStart = new JButton("Calculate Route");
+		JButton buStart = new JButton("Calculate");
 		buStart.setPreferredSize(new Dimension(100, 20));
 		buStart.addActionListener(new ActionListener() {
 			

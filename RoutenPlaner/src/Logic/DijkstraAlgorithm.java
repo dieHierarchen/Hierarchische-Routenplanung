@@ -16,7 +16,7 @@ import Graph.Graph;
 import Graph.Node;
 
 
-public class DijkstraAlgorithm {
+public class DijkstraAlgorithm implements ShortestPathAlgorithm {
 	
 	private Node startingNode;
 	private Node finalNode;
@@ -50,7 +50,8 @@ public class DijkstraAlgorithm {
 		
 		resultGraph = new Graph();
 		for (Node n : graph.getAllNodes()) {
-			resultGraph.addNode(n.getLabel(), n.getId(), n.getLon(), n.getLat());
+			
+			resultGraph.addNode(n.getId(), n.getLon(), n.getLat());
 		}
 		
 	}
@@ -72,12 +73,9 @@ public class DijkstraAlgorithm {
 		distance.put(startingNode, 0.0);
 		do {
 			Edge minEdge = minOpenEdge();
-			//
-			System.out.println("");
-			//
 
 			//weight in spanning tree doens`t mind -> 1 for easier implementation of findPath
-			resultGraph.addEdge(minEdge.getStart().getId(), minEdge.getAim().getId()); 	
+			resultGraph.addEdge(minEdge.getStart().getId(), minEdge.getAim().getId(), minEdge.getWeight()); 	
 		}while (!distance.containsKey(finalNode));
 	}
 	
@@ -91,20 +89,13 @@ public class DijkstraAlgorithm {
 		for (Node n : distance.keySet()) {
 			for (Node neigh : n.getNeighbours()) {
 				actualEdgeValue= graph.getEdgeWeight(n.getId(), neigh.getId());
-				//
-				System.out.println("Edge from " + n.getId() + "and " + neigh.getId() + "with Weight: " + actualEdgeValue);
-				//
+
 				if (actualEdgeValue != 0 && (distance.containsKey(n) && !distance.containsKey(neigh))) {
 					actualDistancefromStart = actualEdgeValue + distance.get(n);
-					//
-					System.out.println("actualDistFromStart: " + actualDistancefromStart);
-					//
+
 					if (minEdge == null | actualDistancefromStart < minValue) {
-						minEdge = new Edge(n, neigh);
+						minEdge = new Edge(n, neigh, (float)actualEdgeValue);
 						minValue = actualDistancefromStart;
-						//
-						System.out.println("Take Edge " + n.getId() + "to " + neigh.getId());
-						//
 					}
 				}
 			}

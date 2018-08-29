@@ -1,0 +1,46 @@
+package Graph;
+
+public class Edge {
+
+	private Node start;
+	private Node aim;
+<<<<<<< HEAD
+	private double weight;
+
+	public Edge(Node start, Node aim) {
+
+		this.start = start;
+		this.aim = aim;
+		this.weight = start.getDistance(aim);
+
+	}
+
+	public double getWeight() {
+		double weight = this.weight;
+=======
+	private float weight;
+
+	public Edge(Node start, Node aim, float weight) {
+
+		this.start = start;
+		this.aim = aim;
+		this.weight = weight;
+
+	}
+
+	public float getWeight() {
+>>>>>>> dbc7c8d0466e83439b29caa66db47c9e42f6c61f
+		return weight;
+	}
+
+	public Node getAim() {
+		Node aim = this.aim;
+		return aim;
+	}
+
+	public Node getStart() {
+		Node start = this.start;
+		return start;
+	}
+
+}

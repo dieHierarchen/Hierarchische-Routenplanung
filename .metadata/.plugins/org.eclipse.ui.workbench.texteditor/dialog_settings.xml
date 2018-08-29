@@ -2,19 +2,21 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="resultGraph" key="selection"/>
+		<item value="calculate" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="calculate"/>
+			<item value="&#x09;&#x09;ShortestPathAlgorithm shortestPathAlg = null;"/>
+			<item value="getall"/>
 			<item value="resultGraph"/>
 			<item value="Graphics2D graphics = (Graphics2D) this.getGraphics();"/>
 			<item value="coordinate"/>
 			<item value="null"/>
 			<item value="//&#x09;&#x09;//test:"/>
 			<item value="switch(algorithm) {"/>
-			<item value="&#x09;&#x09;ArrayList&lt;String&gt; nodesNames = new ArrayList&lt;&gt;();"/>
 		</list>
 		<list key="replacehistory">
 		</list>

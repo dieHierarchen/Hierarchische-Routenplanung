@@ -4,41 +4,62 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class Node implements Comparable<Node>{
-
-	private String label;
-	private int id;
+	private String id;
 	private double lon;
 	private double lat;
 	private ArrayList<Edge> adjazenzList;
+	
+	private double gCost;
+	private double fCost;
+	private Node predecessor;
 
-	public Node(String label, int id, double lon, double lat) {
-
-		this.label = label;
+	public Node(String id, double lon, double lat) {
 		this.id = id;
 		this.lon = lon;
 		this.lat = lat;
 		adjazenzList = new ArrayList<Edge>();
 	}
-
 	
-	/* Adds edge to the current node */
+	public void setGCost(double gCost) {
+		this.gCost = gCost;
+	}
+	
+	public double getGCost() {
+		return gCost;
+	}
+	
+	public void setFCost(double fCost) {
+		this.fCost = fCost;
+	}
+	
+	public double getFCost() {
+		return fCost;
+	}
+	
+	public Node getPredecessor() {
+		return predecessor;
+	}
+	
+	public void setPredecessor(Node predecessor) {
+		this.predecessor = predecessor;
+	}
 
-	public void addEdge(Edge e) throws IllegalArgumentException {
+	/* Fügt Knoten eine Kante hinzu */
 
-		if (adjazenzList.contains(e)) {
-			throw new IllegalArgumentException("The edge is already existing");
-		}
-		else {
+	public void addEdge(Edge e) {
+
+		if (!adjazenzList.contains(e)) {
+
 			adjazenzList.add(e);
 		}
 	}
-	
 
-	/* Deletes edge from adjacencylist of the current node */
+	/* Löscht Kante aus Adjazenzliste eines Knotens */
 
 	public void removeEdge(Edge e) throws NoSuchElementException {
 
 		if (adjazenzList.contains(e)) {
+
 			adjazenzList.remove(e);
 			Node tmp = e.getAim();
 			Iterator<Edge> i = tmp.adjazenzList.iterator();
@@ -46,16 +67,19 @@ public class Node implements Comparable<Node>{
 				if (i.next().getAim() == e.getStart()) {
 					i.remove();
 				}
+
 			}
 		}
-		else{
-			throw new NoSuchElementException("Choosen edge is not existing");
+
+		else
+
+		{
+			throw new NoSuchElementException("Kante existiert nicht");
 		}
 
 	}
 
-	
-	/* Deletes every edge with the choosen node in the graph */
+	/* Löscht sämtliche Kanten von und zu dem Zielknoten */
 
 	public void deleteAllEdges(Node n) {
 		Edge currentEdge;
@@ -68,8 +92,7 @@ public class Node implements Comparable<Node>{
 		}
 	}
 	
-	
-	/* Returns list of all neighbours */
+	/* Gibt Liste aller Nachbarn zurück */
 
 	public ArrayList<Node> getNeighbours()
 	{
@@ -83,13 +106,12 @@ public class Node implements Comparable<Node>{
 		return allNeighbours;
 	}
 	
-	
-	/* Calculates weight of the edge between nodes in kilometers */
+	/* Berechnet Distanz zu anderem Knoten in Kilometern */
 	
 	public double getDistance(Node aim)
 	{
 		final int R = 6371;
-		double distanceLat = Math.toRadians(aim.getLat() - this.getLat());
+ 		double distanceLat = Math.toRadians(aim.getLat() - this.getLat());
 		double distanceLon = Math.toRadians(aim.getLon() - this.getLon());
 		double x = Math.sin(distanceLat / 2) * Math.sin(distanceLat / 2)
 				   + Math.cos(Math.toRadians(this.getLat())) * Math.cos(Math.toRadians(aim.getLat()))
@@ -100,25 +122,17 @@ public class Node implements Comparable<Node>{
 		return distance;
 		
 	}
-	
-	
-	/* Compares two nodes with each other */ 
-	
-	@Override
-	public int compareTo(Node o) {
-		return this.getLabel().compareTo(o.getLabel());
-	}
 
 	public ArrayList<Edge> getAllEdges(Node n) {
 		return n.adjazenzList;
 	}
 	
 	public String getLabel() {
-		return label;
+		return id;
 	}
 
 	public void setLabel(String label) {
-		this.label = label;
+		this.id = label;
 	}
 
 	public ArrayList<Edge> getAdjazenzList() {
@@ -129,11 +143,16 @@ public class Node implements Comparable<Node>{
 		this.adjazenzList = adjazenzList;
 	}
 
-	public int getId() {
+	@Override
+	public int compareTo(Node o) {
+		return this.getLabel().compareTo(o.getLabel());
+	}
+
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

@@ -1,0 +1,13 @@
+package Logic;
+
+<<<<<<< HEAD
+
+public interface XmlReadyCallback {
+	public void readingXmlDone();
+=======
+import Graph.Graph;
+
+public interface XmlReadyCallback {
+	public void readingXmlDone(Graph graph);
+>>>>>>> dbc7c8d0466e83439b29caa66db47c9e42f6c61f
+}
