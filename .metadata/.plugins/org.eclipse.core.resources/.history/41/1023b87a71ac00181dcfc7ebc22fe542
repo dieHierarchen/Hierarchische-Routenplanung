@@ -1,5 +1,8 @@
 package Logic;
 
+import java.util.ArrayList;
+import javax.xml.namespace.QName;
+
 import org.xml.sax.helpers.AttributesImpl;
 
 import Graph.Graph;
@@ -20,7 +23,6 @@ public class XmlEdgeParser extends XmlNodeParser{
 			super(qName,attributes);
 		}
 		
-		//Kanten Informationen an Graph übertragen
 		public void elementIsReady() {
 			String sourceId = "";
 			String targetId = "";

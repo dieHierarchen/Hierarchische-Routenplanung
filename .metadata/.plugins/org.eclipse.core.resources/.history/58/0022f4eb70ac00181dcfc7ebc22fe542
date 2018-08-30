@@ -1,24 +1,27 @@
 package Logic;
 
 import Graph.Edge;
+import Graph.Graph;
 import Graph.Node;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.PriorityQueue;
 
 public class AStarAlgorithm implements ShortestPathAlgorithm {
 	private Node startingNode;
 	private Node finalNode;
-	private List<Node> openList = new LinkedList<Node>();
+	private Graph graph;
+	private PriorityQueue<Node> openList = new PriorityQueue<Node>();
 	private List<Node> closedList = new LinkedList<Node>();
 	
 	private ArrayList<Node> resultList;
 	
-	public AStarAlgorithm(Node startingNode, Node finalNode) {
+	public AStarAlgorithm(Node startingNode, Node finalNode, Graph graph) {
 		this.startingNode = startingNode;
 		this.finalNode = finalNode;
+		this.graph = graph;
 	}
 	
 	public void startAlgorithm() {
@@ -30,9 +33,9 @@ public class AStarAlgorithm implements ShortestPathAlgorithm {
 		while(iter.hasPrevious()) {
 			resultList.add(iter.previous());
 		}
+		
 	}
 	
-	//Kosten zwischen den Knoten in Luftlinie
 	private double estimateCost(Node node, Node target) {
 		final int R = 6371;
  		double distanceLat = Math.toRadians(target.getLat() - node.getLat());
@@ -61,31 +64,17 @@ public class AStarAlgorithm implements ShortestPathAlgorithm {
 		return path;
 	}
 	
-	//Geringste Distanz suchen und aus Liste entfernen/zurückgeben
-	private Node pollLowestFCost(List<Node> nodes) {
-		Node lowestNode = nodes.get(0);
-		for(Node node: nodes) {
-			if(node.getFCost() < lowestNode.getFCost()) {
-				lowestNode = node;
-			}
-		}
-		nodes.remove(lowestNode);
-		return lowestNode;
-	}
-	
 	private List<Node> search(Node fromNode, Node toNode){
-		openList.add(fromNode);
+		openList.offer(fromNode);
 		
 		while(!openList.isEmpty()) {
-			Node node = pollLowestFCost(openList);
+			Node node = openList.poll();
 			closedList.add(node);
 			if (node.getId() == toNode.getId()) {
 				return reconstructPath(node);
 			}
-			System.out.println("from " + node.getLabel());
 			for (Edge edge: node.getAdjazenzList()) {
 				Node succ = edge.getAim();
-				System.out.println("to " + succ.getLabel());
 				if (closedList.contains(succ)){
 					continue;
 				}
@@ -107,7 +96,7 @@ public class AStarAlgorithm implements ShortestPathAlgorithm {
 				if(openList.contains(succ)) {
 					openList.remove(succ);
 				}
-				openList.add(succ);
+				openList.offer(succ);
 			}
 		}
 		System.out.println("null");
