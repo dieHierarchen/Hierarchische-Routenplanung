@@ -17,16 +17,14 @@ public class XmlNodeParser extends DefaultHandler {
 		this.graph = graph;
 	}
 	
-	//Factory funktion zum aufruf des ElementContent konstruktors
 	protected ElementContent getElementContent(String qName, AttributesImpl attributes) {
 		return new ElementContent(qName, attributes);
 	}
 	
 	public void endDocument() {
-		System.out.println("End of Document reached");
+		System.out.println("end doc");
 	}
 	
-	//Knoten Informationen
 	protected class ElementContent{
 		protected String qName;
 		public String innerXML;
@@ -42,7 +40,19 @@ public class XmlNodeParser extends DefaultHandler {
 			children.add(element);
 		}
 		
-		//Knoten informationen an Graph übertragen
+		public AttributePair getAttributePair() {
+			String key = "";
+			String value = "";
+			for(int i = 0; i<attributes.getLength(); i++) {
+				if(attributes.getQName(i).contains("k")) {
+					key = attributes.getValue(i);
+				}else if (attributes.getQName(i).contains("v")) {
+					value = attributes.getValue(i);
+				}
+			}
+			return new AttributePair(key,value);
+		}
+		
 		public void elementIsReady() {
 			String id = "";
 			double lon = 0;
@@ -75,8 +85,16 @@ public class XmlNodeParser extends DefaultHandler {
 			}
 		}
 	}
+	
+	protected class AttributePair{
+		public String value;
+		public String key;
+		public AttributePair(String key, String value) {
+			this.value = value;
+			this.key = key;
+		}
+	}
 
-	//Tag Name und Attribute parsen
 	public void startElement(String nameSpaceURI, String localName, String qName, Attributes atts) {
 		if (qName == "node" || qName == "edge") {
 			if(elements != null) {
@@ -114,7 +132,6 @@ public class XmlNodeParser extends DefaultHandler {
 		
 	}
 
-	//Text im Tag parsen
 	public void characters(char[] ch, int start, int length) {
 		String innerXML = "";
 		for(int i = start; i < start + length; i++) {

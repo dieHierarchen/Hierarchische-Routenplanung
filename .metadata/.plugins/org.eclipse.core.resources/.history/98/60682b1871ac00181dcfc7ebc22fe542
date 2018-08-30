@@ -19,32 +19,33 @@ public class XmlParser {
 	}
 	
 	public void startParsing() {
-		String path = "ShortedXmlHighwaysOnly.xml";
+		String path = "ShortedXmlHighwaysOnly.xml";//"optimizedOnlyMotorways.osm";
 		
-		//Knoten aus XML in Graph schreiben
 		DefaultHandler nodeHandler = new XmlNodeParser(graph);
 		SAXParserFactory nodeFactory = SAXParserFactory.newInstance();
 		try {
 			SAXParser parser = nodeFactory.newSAXParser();
 			parser.parse(new File(path), nodeHandler);
 		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SAXException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Parsing of Nodes done");
-		
-		//Kanten aus XML in Graph schreiben
+		System.out.println("nodes done");
 		DefaultHandler edgeHandler = new XmlEdgeParser(graph);
 		SAXParserFactory edgeFactory = SAXParserFactory.newInstance();
 		try {
 			SAXParser parser = edgeFactory.newSAXParser();
 			parser.parse(new File(path), edgeHandler);
 		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SAXException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();

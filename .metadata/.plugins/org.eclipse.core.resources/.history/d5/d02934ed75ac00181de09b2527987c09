@@ -29,7 +29,7 @@ public class MainWindow extends JFrame{
 	
 	public void setComboBoxes(String[] destinations, String[] Algorithms) {
 		
-		cbStartPoint.setModel(new DefaultComboBoxModel<String>(destinations));			
+		cbStartPoint.setModel(new DefaultComboBoxModel<String>(destinations));				//sp�ter gegen Knoten Klasse von Julius tauschen
 		cbDestination.setModel(new DefaultComboBoxModel<String>(destinations));	
 		cbAlgorithm.setModel(new DefaultComboBoxModel<String>(Algorithms)); 
 	}
@@ -44,7 +44,7 @@ public class MainWindow extends JFrame{
 	private JTextArea textArea;
 	private JTextField  TimeNeeded;
 	
-	public void displayResults(ArrayList<Node> resultList, double minDistance, double timeNeedForCalc) {								
+	public void displayResults(ArrayList<Node> resultList, double minDistance, double timeNeedForCalc) {								//sp�ter gegen Knoten Klasse tauschen.
 		String resultDescription = DrawCanvas.DrawResultRoute(resultList, minDistance);
 		textArea.setText(resultDescription);
 		this.TimeNeeded.setText(timeNeedForCalc + " Seconds");
@@ -100,7 +100,7 @@ public class MainWindow extends JFrame{
 		North.add(cbStartPoint);
 		
 		textStartSearch = new JTextField();
-		textStartSearch.setPreferredSize(new Dimension(130, 20));
+		textStartSearch.setPreferredSize(new Dimension(100, 20));
 		textStartSearch.addFocusListener(new FocusListener() {
 			
 			@Override
@@ -122,7 +122,7 @@ public class MainWindow extends JFrame{
 		North.add(cbDestination);
 		
 		textDestiSearch = new JTextField();
-		textDestiSearch.setPreferredSize(new Dimension(130, 20));
+		textDestiSearch.setPreferredSize(new Dimension(100, 20));
 		textDestiSearch.addFocusListener(new FocusListener() {
 			@Override
 			public void focusLost(FocusEvent e) {

@@ -30,7 +30,7 @@ public class AlgorithmWorker extends SwingWorker<Integer, Integer> {
 			shortestPathAlg = new FordAlgorithm(modell.getHighWayGraph(), modell.getStartNode(), modell.getDestiNode());
 			break;
 		case "A* Algorithmus":
-			shortestPathAlg = new AStarAlgorithm(modell.getStartNode(), modell.getDestiNode());
+			shortestPathAlg = new AStarAlgorithm(modell.getStartNode(), modell.getDestiNode(), modell.getHighWayGraph());
 			break;
 		};
 		

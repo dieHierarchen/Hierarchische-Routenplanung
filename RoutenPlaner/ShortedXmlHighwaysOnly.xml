@@ -2835,7 +2835,7 @@
 <node id="BRÜHL / BORNHEIM (A 553)"><data key="lat">50.803423</data><data key="lon">6.9048392</data></node>
 <node id="BRÜHL - OST (A 553)"><data key="lat">50.8275725</data><data key="lon">6.9326678</data></node>
 <node id="BRÜHL - NORD  (Südteil) (A 553)"><data key="lat">50.8275725</data><data key="lon">6.9326678</data></node>
-<node id="KÖLN - VERTEILERKREIS (A 555)"><data key="lat">53.1912584</data><data key="lon">8.5674699</data></node>
+<node id="KÖLN - VERTEILERKREIS (A 555)"><data key="lat">50.8799802</data><data key="lon">6.9689106</data></node>
 <node id="KREUZ KÖLN - SÜD"><data key="lat">50.8799802</data><data key="lon">6.9689106</data></node>
 <node id="KREUZ RODENKIRCHEN"><data key="lat">50.8799802</data><data key="lon">6.9689106</data></node>
 <node id="GODORF (A 555)"><data key="lat">50.8422724</data><data key="lon">6.9674459</data></node>
