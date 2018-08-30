@@ -46,7 +46,7 @@ public class UnitTestFord {
 				//calculate shortest way from node 1 to node 8:
 				Node start = testGraph.getNode("1");
 				Node aim = testGraph.getNode("5");
-				FordAlgo = new FordAlgorithm(testGraph, start, aim);
+				FordAlgo = new FordAlgorithm(testGraph, start, aimj);
 				FordAlgo.startAlgorithm();
 	}
 	

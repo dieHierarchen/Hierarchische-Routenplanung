@@ -1,8 +1,12 @@
 package UnitTests;
 
 import Logic.*;
+
+import java.beans.Expression;
 import java.util.ArrayList;
+
 import org.junit.*;
+
 import Graph.Graph;
 import Graph.Node;
 
@@ -66,10 +70,9 @@ public class UnitTestFord {
 	public void AssertCorrectDistance(){
 		
 		double distance = FordAlgo.getMinDistance();
-
-		Assert.assertTrue(distance == 517.9157232903062);
+		
+		Assert.assertTrue(distance == 500);
 		
 	}
-
 
 }

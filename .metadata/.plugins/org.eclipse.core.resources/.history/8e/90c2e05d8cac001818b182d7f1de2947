@@ -3,6 +3,8 @@ package UnitTests;
 import java.util.ArrayList;
 
 import org.junit.*;
+
+import Graph.Edge;
 import Graph.Graph;
 import Graph.Node;
 

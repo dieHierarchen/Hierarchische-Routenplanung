@@ -1,8 +1,12 @@
 package UnitTests;
 
 import Logic.*;
+
+import java.beans.Expression;
 import java.util.ArrayList;
+
 import org.junit.*;
+
 import Graph.Graph;
 import Graph.Node;
 

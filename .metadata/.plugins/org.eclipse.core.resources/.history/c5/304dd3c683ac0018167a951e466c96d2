@@ -116,13 +116,8 @@ public class FordAlgorithm implements ShortestPathAlgorithm{
 
 	@Override
 	public double getMinDistance() {
-		double result =0 ;
-		for(int i = 0; i < distance.length; i++){
-			if(allNodes.indexOf(aim) == i){
-				result = distance[i];
-			}
-		}
-		return result;
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

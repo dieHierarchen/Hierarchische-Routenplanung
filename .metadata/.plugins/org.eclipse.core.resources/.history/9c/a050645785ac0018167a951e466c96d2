@@ -22,9 +22,8 @@ public class FordAlgorithm implements ShortestPathAlgorithm{
 	public Node aim;
 	public Node source;
 	public double distance[];
-
 	
-	public FordAlgorithm(Graph g, Node aim, Node source) {
+	public FordAlgorithm(Graph g, Node source, Node aim) {
 
 		allNodes = g.getAllNodes();
 		allEdges = g.getAllEdges();
@@ -34,6 +33,7 @@ public class FordAlgorithm implements ShortestPathAlgorithm{
 		this.g = g;
 		this.aim = aim;
 		this.source = source;
+		fordHash(this.g, this.source);
 	}
 
 	/* Performs Ford-Algorithm with the given data */
